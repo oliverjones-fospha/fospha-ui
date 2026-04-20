@@ -1,69 +1,22 @@
-@import "tailwindcss";
-
-@theme inline {
-  --font-display: "Bricolage Grotesque", sans-serif;
-  --font-body: "Manrope", sans-serif;
-  --font-accent: "PT Serif", serif;
-  --color-background: #FFFFFF;
-  --color-foreground: #0C1946;
-  --color-primary: #2253FF;
-  --color-primary-foreground: #FFFFFF;
-  --color-secondary: #F3EDE9;
-  --color-secondary-foreground: #0C1946;
-  --color-muted: #F6F2EF;
-  --color-muted-foreground: #525776;
-  --color-accent: #E3EEFF;
-  --color-accent-foreground: #0C1946;
-  --color-destructive: #EA4C2F;
-  --color-destructive-foreground: #FFFFFF;
-  --color-border: #E6DCD6;
-  --color-input: #E6DCD6;
-  --color-ring: #2253FF;
-  --color-chart-1: #2253FF;
-  --color-chart-2: #C7BEFD;
-  --color-chart-3: #FEB453;
-  --color-chart-4: #00CBBD;
-  --color-chart-5: #FF86FC;
-  --radius: 0.375rem;
-}
+/* =============================================================
+   Fospha Design System — Token Additions
+   Merge into: colors_and_type.css (:root block)
+   Purpose:    fills gaps found while building the 2026 Sales Deck.
+   ============================================================= */
 
 :root {
-  --fos-blue: #2253FF;
-  --fos-dark-blue: #0C1946;
-  --fos-grey: #474747;
-  --fos-cream: #F3EDE9;
-  --fos-cream-light: #F6F2EF;
-  --fos-cream-dark: #E6DCD6;
-  --fos-muted-blue: #525776;
-  --fos-peach: #F9DCC4;
-  --fos-light-blue: #E3EEFF;
-  --fos-yellow: #FFF3DA;
-  --fos-positive-text: #0C5132;
-  --fos-positive-icon: #318760;
-  --fos-positive-bg: #CDFEE1;
-  --fos-negative-text: #8E1F0B;
-  --fos-negative-icon: #EA4C2F;
-  --fos-negative-bg: #FDE9E7;
-  --fos-cta-gradient-start: #26ACFF;
-  --fos-cta-gradient-end: #6538FF;
-  --fos-block-1: #E3EEFF;
-  --fos-block-2: #FFF3DA;
-  --fos-block-3: #F9DCC4;
-  --fos-block-4: #F3EDE9;
-  --fos-spark-dark:    #7347EB;
-  --fos-spark-mid:     #A280FF;
-  --fos-spark-light:   #DED6F5;
-  --fos-spark-lighter: #F6F2FD;
-
   /* ─────────────────────────────────────────────────────────────
      INVERSE / ON-DARK TEXT & SURFACE RAMP
+     Used anywhere we put content on --fos-dark-blue.
+     Replaces the ad-hoc rgba(255,255,255,0.XX) values scattered
+     across hero, chapter, and stats-hero slides.
      ───────────────────────────────────────────────────────────── */
   --fg-on-dark-1:       #FFFFFF;                    /* Display / headings on dark */
   --fg-on-dark-2:       rgba(255, 255, 255, 0.78);  /* Body copy on dark */
   --fg-on-dark-3:       rgba(255, 255, 255, 0.55);  /* Meta / muted on dark */
   --fg-on-dark-faint:   rgba(255, 255, 255, 0.35);  /* Placeholder / watermark */
 
-  --border-on-dark:        rgba(255, 255, 255, 0.12);  /* Divider / card border on dark */
+  --border-on-dark:     rgba(255, 255, 255, 0.12);  /* Divider / card border on dark */
   --border-on-dark-strong: rgba(255, 255, 255, 0.18);
 
   --surface-on-dark-1:  rgba(255, 255, 255, 0.04);  /* Card surface on dark */
@@ -147,56 +100,12 @@
   --fos-radius-pill:  999px;  /* chips, uppills */
 }
 
-body {
-  font-family: "Manrope", sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--fos-grey);
-  background-color: #FFFFFF;
-  -webkit-font-smoothing: antialiased;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Bricolage Grotesque", sans-serif;
-  color: var(--fos-dark-blue);
-  font-weight: 600;
-}
-
-h1 { font-size: clamp(40px, 5vw, 48px); }
-h2 { font-size: clamp(28px, 4vw, 36px); }
-h3 { font-size: 24px; font-weight: 500; }
-h4 { font-size: 20px; font-weight: 500; }
-
-a { color: var(--fos-blue); text-decoration: none; }
-
-.fos-eyebrow {
-  font-family: "Manrope", sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--fos-muted-blue);
-}
-
-.fos-cta-gradient {
-  background: linear-gradient(to right, var(--fos-cta-gradient-start), var(--fos-cta-gradient-end));
-}
-
-.fos-stat-number {
-  font-family: "Bricolage Grotesque", sans-serif;
-  font-size: 54px;
-  font-weight: 700;
-  color: var(--fos-dark-blue);
-  line-height: 1;
-}
-
-.fos-positive { color: var(--fos-positive-text); background: var(--fos-positive-bg); }
-.fos-negative { color: var(--fos-negative-text); background: var(--fos-negative-bg); }
-.fos-block-1 { background: var(--fos-block-1); }
-.fos-block-2 { background: var(--fos-block-2); }
-.fos-block-3 { background: var(--fos-block-3); }
-.fos-block-4 { background: var(--fos-block-4); }
-
+/* =============================================================
+   FIX: base slide heading scale clash
+   The web h1–h5 scale uses clamp() sized for pages. In slide
+   contexts (or anywhere you opt out), wrap in .prose or apply
+   .no-prose to reset. This removes the need to reach for !important.
+   ============================================================= */
 .no-prose h1, .no-prose h2, .no-prose h3,
 .no-prose h4, .no-prose h5, .no-prose h6 {
   font-size: inherit;

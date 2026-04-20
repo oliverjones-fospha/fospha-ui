@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 
-const PASSWORD = "fospha2026"  // change this to your preferred password
+const PASSWORD = process.env.SITE_PASSWORD ?? "fospha2026"
 const COOKIE   = "fospha-ds-auth"
 
 export function middleware(req: NextRequest) {

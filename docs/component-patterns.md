@@ -580,3 +580,233 @@ Click-to-play with branded placeholder. Appends `?autoplay=1` to URL on click.
 | `.fos-block-2` | `#FFF3DA` Yellow block |
 | `.fos-block-3` | `#F9DCC4` Peach block |
 | `.fos-block-4` | `#F3EDE9` Cream block |
+
+---
+
+## Presentation / Deck Components
+
+Pure CSS classes defined in `src/styles/components.css` and `src/styles/slides.css`. No React required — apply directly to HTML elements inside a slide canvas. Always import in this order:
+
+```css
+@import "globals.css";
+@import "styles/tokens-additions.css";
+@import "styles/components.css";
+@import "styles/slides.css";
+```
+
+Slides use a 1920×1080px fixed canvas (`--slide-width` / `--slide-height`). Wrap every slide in `<section class="slide">` (light) or `<section class="slide dark">` (dark navy).
+
+---
+
+### .fos-card
+
+Surface-agnostic card with white background, `--fos-cream-dark` border, and `--fos-radius-xl` corners. Combine with a modifier for variant or accent.
+
+| Modifier | Effect |
+|---|---|
+| `.fos-card--cream` | Cream `#F3EDE9` fill |
+| `.fos-card--cream-light` | Light cream `#F6F2EF` fill |
+| `.fos-card--on-dark` | Translucent white fill + light border for dark slides |
+| `.fos-card--accent-core/halo/glow/beam/prism/spark/blue` | 5px left border in product dark shade |
+
+```html
+<!-- Standard card -->
+<div class="fos-card" style="padding: 40px;">Content</div>
+
+<!-- Cream fill -->
+<div class="fos-card fos-card--cream" style="padding: 40px;">Content</div>
+
+<!-- On dark slide -->
+<div class="fos-card fos-card--on-dark" style="padding: 40px;">Content</div>
+
+<!-- Core product accent -->
+<div class="fos-card fos-card--accent-core" style="padding: 40px;">Content</div>
+```
+
+---
+
+### .fos-pchip
+
+Product identity chip — pill shape pairing a product icon with an uppercase product name. Use `.fos-pchip--on-dark` on dark slide backgrounds.
+
+| Modifier | Product |
+|---|---|
+| `.fos-pchip--core` | Core |
+| `.fos-pchip--halo` | Halo |
+| `.fos-pchip--glow` | Glow |
+| `.fos-pchip--beam` | Beam |
+| `.fos-pchip--prism` | Prism |
+| `.fos-pchip--spark` | Spark AI |
+
+```html
+<!-- Light slide -->
+<span class="fos-pchip fos-pchip--core">
+  <img src="/icons/core.svg" alt="" />Core
+</span>
+
+<!-- Dark slide — add --on-dark -->
+<span class="fos-pchip fos-pchip--on-dark fos-pchip--spark">
+  <img src="/icons/spark.svg" alt="" />Spark AI
+</span>
+```
+
+---
+
+### .fos-badge
+
+Small uppercase label. Flat rectangle (not pill). Use `.fos-badge--next` for "Up Next" / coming-soon labels. Add `.fos-badge--dot` to prepend a coloured dot.
+
+```html
+<span class="fos-badge fos-badge--next fos-badge--dot">Up next — Q3</span>
+```
+
+---
+
+### .fos-uppill
+
+Sentiment pill with a ✓ or ✗ prefix. Pill-shaped. Use `.fos-uppill--pos` (green) or `.fos-uppill--neg` (red).
+
+```html
+<span class="fos-uppill fos-uppill--pos">✓ Included</span>
+<span class="fos-uppill fos-uppill--neg">✗ Not included</span>
+```
+
+---
+
+### .fos-upnext
+
+"Up Next" callout box used inside product cards to preview a coming feature. Renders on cream by default; switches to white automatically when nested inside `.fos-card--cream` or `.fos-card--cream-light`.
+
+```html
+<div class="fos-upnext">
+  <div class="fos-upnext__label">Up next</div>
+  <div class="fos-upnext__body">Cross-channel incrementality testing — Q3 2026</div>
+</div>
+```
+
+---
+
+### .fos-compare
+
+Full-width comparison table for competitive or feature matrices. Use `.fos-compare__mark-v` (green ✓) and `.fos-compare__mark-x` (red ✗) spans inside cells.
+
+```html
+<table class="fos-compare">
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Fospha</th>
+      <th>Competitor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Always-on attribution</td>
+      <td><span class="fos-compare__mark-v">✓</span>Yes</td>
+      <td><span class="fos-compare__mark-x">✗</span>No</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+---
+
+### .fos-proof__num / .fos-proof__cap
+
+Oversized headline stat for customer-proof slides. `.fos-proof__num` renders in Fospha Blue at `--type-proof` (152px). `.fos-proof__cap` is the supporting label below it.
+
+```html
+<div class="fos-proof__num">3.8×</div>
+<div class="fos-proof__cap">average ROAS uplift within 90 days</div>
+```
+
+---
+
+### Type scale
+
+Presentation-sized text classes. Use inside `.no-prose` wrappers to prevent the web `h1–h6` clamp scale from overriding these sizes.
+
+| Class | Size | Font | Use for |
+|---|---|---|---|
+| `.t-display` | 88px | Bricolage Grotesque Bold | Chapter / section display heading |
+| `.t-title` | 60px | Bricolage Grotesque Bold | Standard slide H2 |
+| `.t-subtitle` | 36px | Bricolage Grotesque Medium | Slide subtitle / supporting line |
+| `.t-body` | 26px | Manrope Regular | Slide body copy |
+| `.t-small` | 22px | Manrope Regular | Footer / meta copy |
+| `.t-eyebrow` | 22px | Manrope Bold, uppercase | Slide section eyebrow |
+| `.t-num` | 132px | Bricolage Grotesque Bold | Stats. Add `.t-num--sm` (96px) or `.t-num--xl` (168px) |
+| `.t-quote` | 38px | PT Serif Italic | Pull quote on dark slide |
+
+```html
+<div class="no-prose">
+  <p class="t-eyebrow">Performance</p>
+  <h2 class="t-title">Revenue grew 3.8× in 90 days</h2>
+  <p class="t-subtitle">Across all paid channels, attributed to the day.</p>
+</div>
+
+<!-- Stats -->
+<div class="t-num">3.8<span style="font-size:0.5em">×</span></div>
+
+<!-- Pull quote on dark slide -->
+<blockquote class="t-quote">"Fospha changed how we think about spend."</blockquote>
+```
+
+Dark slide automatically inverts type colours — no extra classes needed when inside `section.slide.dark`.
+
+---
+
+### Layout primitives
+
+#### .frame
+
+Absolute-positioned full-bleed container that provides the standard slide padding (`--slide-padding-x` / `--slide-padding-y`) and a flex column scaffold. Every slide's inner content goes inside `.frame`.
+
+```html
+<section class="slide dark">
+  <div class="frame">
+    <div class="hdr">…</div>
+    <!-- slide content -->
+    <div class="footer">…</div>
+  </div>
+</section>
+```
+
+#### .hdr
+
+Logo + meta row pinned to the top of `.frame`. Contains a `.logo` div (left) and a `.meta` div (right). `.meta` accepts `.sep` (vertical rule) and `.num` (bold slide number) children.
+
+```html
+<div class="hdr">
+  <div class="logo"><img src="/logo-white.svg" alt="Fospha" /></div>
+  <div class="meta">
+    <span>2026 Sales Deck</span>
+    <span class="sep"></span>
+    <span class="num">04</span>
+  </div>
+</div>
+```
+
+#### .footer
+
+Absolutely positioned bar at the slide bottom (`--slide-footer-gap` from the edge). Left side (`.l`) holds a small logo or tagline; right side holds a `.num` page counter.
+
+```html
+<div class="footer">
+  <div class="l">
+    <img src="/logomark.svg" alt="" />
+    <span>fospha.com</span>
+  </div>
+  <span class="num">04 / 24</span>
+</div>
+```
+
+#### .chapter-mark
+
+Decorative oversized number watermark (320px) rendered in the bottom-right corner of chapter slides. Set content via `data-*` or inner text.
+
+```html
+<section class="slide dark">
+  <div class="frame">…</div>
+  <div class="chapter-mark">02</div>
+</section>
+```

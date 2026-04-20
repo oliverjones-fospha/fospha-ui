@@ -1,0 +1,267 @@
+/* =============================================================
+   Fospha Design System — Slide / Deck Primitives
+   Depends on: colors_and_type.css + tokens-additions.css + components.css
+   Scope:      styles that only make sense inside a <deck-stage> / slide.
+
+   IMPORTANT:
+   - Do NOT set background:#fff on section.slide in a shared file —
+     it beats .dark via specificity. Either set it on body/deck-stage
+     or use `section.slide:not(.dark)`. This file uses the latter.
+   ============================================================= */
+
+html, body { margin: 0; background: #000; }
+deck-stage { font-family: var(--fos-font-body); color: var(--fos-grey); }
+
+/* ─────────────────────────────────────────────────────────────
+   BASE SLIDE SURFACE
+   ───────────────────────────────────────────────────────────── */
+section.slide {
+  color: var(--fos-grey);
+  overflow: hidden;
+  position: relative;
+}
+section.slide:not(.dark) { background: #FFFFFF; }
+
+/* Dark variant — specificity-safe */
+section.slide.dark {
+  background: var(--fos-dark-blue);
+  color: var(--fg-on-dark-1);
+}
+section.slide.dark h1,
+section.slide.dark h2,
+section.slide.dark h3 { color: var(--fg-on-dark-1); }
+
+/* ─────────────────────────────────────────────────────────────
+   SLIDE TYPE SCALE
+   Presentation-sized. Use these instead of hand-picked px sizes.
+   ───────────────────────────────────────────────────────────── */
+.t-display {
+  font-family: var(--fos-font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--type-display);
+  line-height: var(--lh-display);
+  letter-spacing: -0.02em;
+  color: var(--fos-dark-blue);
+}
+.t-title {
+  font-family: var(--fos-font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--type-title);
+  line-height: var(--lh-title);
+  letter-spacing: -0.018em;
+  color: var(--fos-dark-blue);
+}
+.t-subtitle {
+  font-family: var(--fos-font-display);
+  font-weight: var(--fw-medium);
+  font-size: var(--type-subtitle);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  color: var(--fos-grey);
+}
+.t-body {
+  font-family: var(--fos-font-body);
+  font-weight: var(--fw-regular);
+  font-size: var(--type-body-lg);
+  line-height: var(--lh-body);
+  color: var(--fos-grey);
+}
+.t-small {
+  font-family: var(--fos-font-body);
+  font-weight: var(--fw-regular);
+  font-size: var(--type-body-sm);
+  line-height: var(--lh-body);
+  color: var(--fos-grey);
+}
+.t-eyebrow {
+  font-family: var(--fos-font-body);
+  font-weight: var(--fw-bold);
+  font-size: var(--type-eyebrow-lg);
+  line-height: 1;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--fos-muted-blue);
+}
+.t-eyebrow--blue { color: var(--fos-blue); }
+.t-num {
+  font-family: var(--fos-font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--type-stat-lg);
+  line-height: var(--lh-stat);
+  letter-spacing: -0.04em;
+  color: var(--fos-dark-blue);
+}
+.t-num--sm { font-size: var(--type-stat); }
+.t-num--xl { font-size: var(--type-stat-xl); }
+.t-quote {
+  font-family: var(--fos-font-accent);
+  font-style: italic;
+  font-weight: var(--fw-regular);
+  font-size: var(--type-quote);
+  line-height: var(--lh-quote);
+  letter-spacing: -0.005em;
+  color: #FFFFFF;
+}
+.t-quote--on-light { color: var(--fos-dark-blue); }
+
+/* Dark-slide overrides — type colors invert */
+section.slide.dark .t-display,
+section.slide.dark .t-title    { color: var(--fg-on-dark-1); }
+section.slide.dark .t-subtitle,
+section.slide.dark .t-body,
+section.slide.dark .t-small    { color: var(--fg-on-dark-2); }
+section.slide.dark .t-eyebrow  { color: var(--fg-on-dark-3); }
+
+/* ─────────────────────────────────────────────────────────────
+   SLIDE FRAME — the outer padding + flex scaffold every slide uses.
+   ───────────────────────────────────────────────────────────── */
+.frame {
+  position: absolute;
+  inset: 0;
+  padding: var(--slide-padding-y) var(--slide-padding-x);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   HEADER (logo + meta row)
+   ───────────────────────────────────────────────────────────── */
+.hdr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-9);
+}
+.hdr .logo img { height: 34px; display: block; }
+.hdr .meta {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  font-family: var(--fos-font-body);
+  font-weight: var(--fw-medium);
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fos-muted-blue);
+}
+.hdr .meta .sep { width: 1px; height: 14px; background: var(--fos-cream-dark); }
+.hdr .meta .num { font-variant-numeric: tabular-nums; color: var(--fos-dark-blue); font-weight: var(--fw-bold); }
+
+section.slide.dark .hdr .meta     { color: var(--fg-on-dark-3); }
+section.slide.dark .hdr .meta .num{ color: var(--fg-on-dark-1); }
+section.slide.dark .hdr .meta .sep{ background: var(--border-on-dark-strong); }
+
+/* ─────────────────────────────────────────────────────────────
+   FOOTER
+   ───────────────────────────────────────────────────────────── */
+.footer {
+  position: absolute;
+  left: var(--slide-padding-x);
+  right: var(--slide-padding-x);
+  bottom: var(--slide-footer-gap);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--fos-font-body);
+  font-weight: var(--fw-medium);
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fos-muted-blue);
+}
+.footer .l { display: flex; gap: 16px; align-items: center; }
+.footer .l img { height: 18px; opacity: 0.6; }
+.footer .num { font-variant-numeric: tabular-nums; }
+section.slide.dark .footer { color: var(--fg-on-dark-3); }
+
+/* ─────────────────────────────────────────────────────────────
+   CHAPTER BRACKET WATERMARK
+   Huge decorative "01" / "02" / "03" behind chapter slides.
+   ───────────────────────────────────────────────────────────── */
+.chapter-mark {
+  position: absolute;
+  right: var(--slide-padding-x);
+  bottom: var(--slide-padding-x);
+  font-family: var(--fos-font-display);
+  font-weight: var(--fw-bold);
+  font-size: 320px;
+  line-height: 1;
+  color: var(--surface-on-dark-2);
+  user-select: none;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   COVER BRACKET [F watermark
+   ───────────────────────────────────────────────────────────── */
+.cover-bracket {
+  position: absolute;
+  left: -120px;
+  top: -60px;
+  font-family: var(--fos-font-display);
+  font-weight: var(--fw-bold);
+  font-size: 1700px;
+  line-height: 1;
+  color: rgba(34, 83, 255, 0.06);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   IMAGE-PANEL PATTERN
+   Right-side hero image (cover + stats-hero). Includes a fade
+   edge back into the slide background.
+   Usage:
+     <div class="slide-image-panel slide-image-panel--right">
+       <img src="..." />
+     </div>
+   ───────────────────────────────────────────────────────────── */
+.slide-image-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+.slide-image-panel--right { right: 0; }
+.slide-image-panel--left  { left: 0; }
+.slide-image-panel--w-lg { width: 720px; }
+.slide-image-panel--w-md { width: 640px; }
+.slide-image-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Fade edge back into the slide surface */
+.slide-image-panel--fade-left::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right,
+    var(--slide-image-fade, rgba(255,255,255,0.55)) 0%,
+    rgba(255,255,255,0) 22%);
+  pointer-events: none;
+}
+section.slide.dark .slide-image-panel--fade-left::after {
+  --slide-image-fade: var(--fos-dark-blue);
+  background: linear-gradient(to right,
+    var(--fos-dark-blue) 0%,
+    rgba(12, 25, 70, 0) 14%);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   DARK-SLIDE COMPONENT OVERRIDES
+   (keeps component files surface-agnostic — styling for dark
+   surfaces lives here so components stay reusable)
+   ───────────────────────────────────────────────────────────── */
+section.slide.dark .fos-card {
+  background: var(--surface-on-dark-1);
+  border-color: var(--border-on-dark);
+  color: var(--fg-on-dark-2);
+  box-shadow: none;
+}
+section.slide.dark .fos-hr {
+  background: var(--border-on-dark);
+}

@@ -1,0 +1,209 @@
+/* =============================================================
+   Fospha Design System — Component Patterns
+   Depends on: colors_and_type.css + tokens-additions.css
+   Scope:      surface-agnostic components used across web and deck.
+   ============================================================= */
+
+/* ─────────────────────────────────────────────────────────────
+   CARD
+   Light, on-cream, and on-dark variants.
+   ───────────────────────────────────────────────────────────── */
+.fos-card {
+  background: #FFFFFF;
+  border: 1px solid var(--fos-cream-dark);
+  border-radius: var(--fos-radius-xl);
+  box-shadow: var(--fos-shadow-card);
+}
+.fos-card--cream {
+  background: var(--fos-cream);
+}
+.fos-card--cream-light {
+  background: var(--fos-cream-light);
+}
+.fos-card--on-dark {
+  background: var(--surface-on-dark-1);
+  border-color: var(--border-on-dark);
+  color: var(--fg-on-dark-2);
+  box-shadow: none;
+}
+.fos-card--accent-core  { border-left: 5px solid var(--fos-core-dark); }
+.fos-card--accent-halo  { border-left: 5px solid var(--fos-halo-dark); }
+.fos-card--accent-glow  { border-left: 5px solid var(--fos-glow-dark); }
+.fos-card--accent-beam  { border-left: 5px solid var(--fos-beam-dark); }
+.fos-card--accent-prism { border-left: 5px solid var(--fos-prism-dark); }
+.fos-card--accent-spark { border-left: 5px solid var(--fos-spark-dark); }
+.fos-card--accent-blue  { border-left: 5px solid var(--fos-blue); }
+
+/* ─────────────────────────────────────────────────────────────
+   BADGE (small uppercase label pill)
+   ───────────────────────────────────────────────────────────── */
+.fos-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--fos-radius-sm);
+  font-family: var(--fos-font-body);
+  font-weight: var(--fw-bold);
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+.fos-badge--next { background: var(--fos-cream); color: var(--fos-muted-blue); }
+.fos-badge--dot::before {
+  content: "";
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.9;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   PCHIP (product identity chip — Core / Halo / Glow / Beam /
+   Prism / Spark). Always paired with its icon SVG.
+   Modifier .fos-pchip--on-dark recolors for dark slide backgrounds.
+   ───────────────────────────────────────────────────────────── */
+.fos-pchip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: var(--fos-radius-pill);
+  font-family: var(--fos-font-body);
+  font-weight: var(--fw-bold);
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+.fos-pchip img { width: 18px; height: 18px; }
+
+.fos-pchip--core  { background: var(--fos-core-lighter);  color: var(--fos-core-dark);  border-color: var(--fos-core-light); }
+.fos-pchip--halo  { background: var(--fos-halo-lighter);  color: var(--fos-halo-dark);  border-color: var(--fos-halo-light); }
+.fos-pchip--glow  { background: var(--fos-glow-lighter);  color: var(--fos-glow-dark);  border-color: var(--fos-glow-light); }
+.fos-pchip--beam  { background: var(--fos-beam-lighter);  color: var(--fos-beam-dark);  border-color: var(--fos-beam-light); }
+.fos-pchip--prism { background: var(--fos-prism-lighter); color: var(--fos-prism-dark); border-color: var(--fos-prism-light); }
+.fos-pchip--spark { background: var(--fos-spark-lighter); color: var(--fos-spark-dark); border-color: var(--fos-spark-light); }
+
+/* On-dark variants — muted fill, translucent border, light text */
+.fos-pchip--on-dark.fos-pchip--core  { background: rgba(27,69,228,0.18);   border-color: rgba(212,219,247,0.25); color: #BFCBFB; }
+.fos-pchip--on-dark.fos-pchip--halo  { background: rgba(0,128,72,0.18);    border-color: rgba(186,232,212,0.25); color: #8FE2BD; }
+.fos-pchip--on-dark.fos-pchip--glow  { background: rgba(245,191,0,0.14);   border-color: rgba(243,222,145,0.25); color: #F3DE91; }
+.fos-pchip--on-dark.fos-pchip--beam  { background: rgba(173,31,161,0.18);  border-color: rgba(247,212,244,0.25); color: #F7BFEF; }
+.fos-pchip--on-dark.fos-pchip--prism { background: rgba(204,92,0,0.18);    border-color: rgba(246,217,193,0.25); color: #FFC79B; }
+.fos-pchip--on-dark.fos-pchip--spark { background: rgba(115,71,235,0.18);  border-color: rgba(222,214,245,0.25); color: #C8BDF7; }
+
+/* ─────────────────────────────────────────────────────────────
+   UPPILL (sentiment pill with ✓ / ✗ prefix)
+   ───────────────────────────────────────────────────────────── */
+.fos-uppill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: var(--fos-radius-pill);
+  font-family: var(--fos-font-body);
+  font-weight: var(--fw-bold);
+  font-size: 18px;
+  line-height: 1;
+}
+.fos-uppill--pos { background: var(--fos-positive-bg); color: var(--fos-positive-text); }
+.fos-uppill--neg { background: var(--fos-negative-bg); color: var(--fos-negative-text); }
+
+/* ─────────────────────────────────────────────────────────────
+   UP-NEXT CALLOUT
+   Used to preview the next-quarter feature inside a product card.
+   ───────────────────────────────────────────────────────────── */
+.fos-upnext {
+  background: var(--fos-cream);
+  border: 1px solid var(--fos-cream-dark);
+  border-radius: var(--fos-radius-xl);
+  padding: 28px 32px;
+}
+.fos-upnext__label {
+  font-family: var(--fos-font-body);
+  font-weight: var(--fw-bold);
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--fos-blue);
+  margin-bottom: 12px;
+}
+.fos-upnext__body {
+  font-family: var(--fos-font-body);
+  font-weight: var(--fw-medium);
+  font-size: 22px;
+  line-height: 1.45;
+  color: var(--fos-grey);
+}
+/* Nested inside a cream card? Switch to white surface for contrast. */
+.fos-card--cream-light .fos-upnext,
+.fos-card--cream      .fos-upnext {
+  background: #FFFFFF;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   COMPARE TABLE
+   Competitive / feature comparison rows with ✓ / ✗ marks.
+   ───────────────────────────────────────────────────────────── */
+.fos-compare {
+  width: 100%;
+  border-collapse: collapse;
+}
+.fos-compare th,
+.fos-compare td {
+  text-align: left;
+  padding: 18px 20px;
+  font-family: var(--fos-font-body);
+  font-weight: var(--fw-medium);
+  font-size: 22px;
+  line-height: 1.3;
+}
+.fos-compare thead th {
+  font-weight: var(--fw-bold);
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--fos-muted-blue);
+  border-bottom: 1px solid var(--fos-cream-dark);
+  padding-bottom: 16px;
+}
+.fos-compare tbody tr { border-bottom: 1px solid var(--fos-cream-dark); }
+.fos-compare tbody tr:last-child { border-bottom: 0; }
+.fos-compare__mark-x { color: var(--fos-negative-icon); font-weight: var(--fw-bold); margin-right: 10px; }
+.fos-compare__mark-v { color: var(--fos-positive-icon); font-weight: var(--fw-bold); margin-right: 10px; }
+
+/* ─────────────────────────────────────────────────────────────
+   CUSTOMER-PROOF NUMBER (oversized headline stat)
+   ───────────────────────────────────────────────────────────── */
+.fos-proof__num {
+  font-family: var(--fos-font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--type-proof);
+  line-height: var(--lh-stat);
+  letter-spacing: -0.04em;
+  color: var(--fos-blue);
+}
+.fos-proof__cap {
+  font-family: var(--fos-font-display);
+  font-weight: var(--fw-medium);
+  font-size: 26px;
+  line-height: 1.3;
+  color: var(--fos-dark-blue);
+  margin-top: 14px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   GRID HELPERS (shared between web + deck)
+   ───────────────────────────────────────────────────────────── */
+.fos-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-7); }
+.fos-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-7); }
+.fos-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-7); }
+
+/* Hair-line divider */
+.fos-hr { height: 1px; background: var(--fos-cream-dark); border: 0; margin: 0; }
+.fos-hr--on-dark { background: var(--border-on-dark); }

@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fospha Design System
 
-## Getting Started
+The single source of truth for Fospha's brand, components, and product patterns.
 
-First, run the development server:
+## Live URLs
+- Design system: https://fospha-ui.vercel.app/
+- Component docs: https://fospha-ui.vercel.app/docs
+- Dashboard example: https://fospha-ui.vercel.app/dashboard
+- Campaign page: https://fospha-ui.vercel.app/campaign
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Stack
+- Next.js 16 (App Router) + TypeScript
+- Tailwind CSS v4
+- shadcn/ui (Radix, New York style)
+- Recharts
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
+src/
+├── app/globals.css          ← All design tokens (web)
+├── components/fospha/       ← All Fospha components
+├── styles/
+│   ├── tokens-additions.css ← On-dark ramp, spacing, type scale, slide metrics
+│   ├── components.css       ← Surface-agnostic components (card, pchip, badge...)
+│   └── slides.css           ← Deck/presentation primitives
+└── docs/
+    └── component-patterns.md ← Component reference
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## CSS import order (for deck/presentation contexts)
+@import "globals.css";               /* web tokens */
+@import "styles/tokens-additions.css";
+@import "styles/components.css";
+@import "styles/slides.css";         /* deck-only — omit for web */
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Development
+npm run dev    → localhost:3000
+npm run build  → production build
+vercel --prod  → deploy (or push to main via GitHub)
