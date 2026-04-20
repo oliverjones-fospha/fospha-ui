@@ -1,0 +1,7 @@
+export { CoreIcon }  from './core'
+export { HaloIcon }  from './halo'
+export { GlowIcon }  from './glow'
+export { BeamIcon }  from './beam'
+export { PrismIcon } from './prism'
+export { SparkIcon } from './spark'
+export { FosphaLogo, FosphaLogomark } from './logo'
