@@ -3,7 +3,10 @@ import { NextRequest, NextResponse } from "next/server"
 const PASSWORD = process.env.SITE_PASSWORD ?? "fospha2026"
 const COOKIE   = "fospha-ds-auth"
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
+  // Password gate is production-only
+  if (process.env.VERCEL_ENV !== "production") return NextResponse.next()
+
   const cookie = req.cookies.get(COOKIE)
 
   // Already authenticated

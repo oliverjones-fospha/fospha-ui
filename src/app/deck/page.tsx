@@ -3,19 +3,47 @@
 import * as React from "react"
 import { FosphaLogo } from "@/components/fospha/icons"
 import { CoreIcon, HaloIcon, GlowIcon, BeamIcon, PrismIcon, SparkIcon } from "@/components/fospha/icons"
+import { Cookie, Layers, TrendingDown } from "lucide-react"
+
+// ── Helpers ───────────────────────────────────────────────────
+
+function hexGlow(hex: string, alpha = 0.4, size = 20): string {
+  const r = parseInt(hex.slice(1, 3), 16)
+  const g = parseInt(hex.slice(3, 5), 16)
+  const b = parseInt(hex.slice(5, 7), 16)
+  return `0 0 ${size}px rgba(${r}, ${g}, ${b}, ${alpha})`
+}
+
+// ── Secondary colour palette ──────────────────────────────────
+// Rule: light surfaces → dark blue text; dark surfaces → white text.
+
+const SEC = {
+  grey:       { bg: "#474747", text: "#FFFFFF", muted: "rgba(255,255,255,0.6)" },
+  cream:      { bg: "#F3EDE9", text: "#0C1946", muted: "#525776" },
+  lightCream: { bg: "#F6F2EF", text: "#0C1946", muted: "#525776" },
+  darkCream:  { bg: "#E6DCD6", text: "#0C1946", muted: "#525776" },
+  mutedBlue:  { bg: "#525776", text: "#FFFFFF", muted: "rgba(255,255,255,0.6)" },
+  lightBlue:  { bg: "#E3EEFF", text: "#0C1946", muted: "#525776" },
+  yellow:     { bg: "#FFF3DA", text: "#0C1946", muted: "#525776" },
+  peach:      { bg: "#F9DCC4", text: "#0C1946", muted: "#525776" },
+} as const
 
 // ── Slide shell ───────────────────────────────────────────────
 
-function Slide({ children, dark = false, className = "" }: {
+const GRADIENT_BG = "radial-gradient(ellipse 85% 65% at 50% 50%, #FFFFFF 0%, #F6F2EF 30%, #F3EDE9 65%, #E6DCD6 100%)"
+
+function Slide({ children, dark = false, gradient = false, className = "" }: {
   children: React.ReactNode
   dark?: boolean
+  gradient?: boolean
   className?: string
 }) {
+  const bg = gradient ? GRADIENT_BG : dark ? "#0C1946" : "#FFFFFF"
   return (
     <section style={{
       width: "100%",
       aspectRatio: "16/9",
-      background: dark ? "#0C1946" : "#FFFFFF",
+      background: bg,
       position: "relative",
       overflow: "hidden",
       display: "flex",
@@ -59,6 +87,52 @@ function SlideHeader({ dark = false, section = "", slideNum = "" }: {
         {section && slideNum && <span style={{ width: 1, height: 10, background: dark ? "rgba(255,255,255,0.2)" : "#E6DCD6" }} />}
         {slideNum && <span style={{ color: dark ? "#FFFFFF" : "#0C1946", fontVariantNumeric: "tabular-nums" }}>{slideNum}</span>}
       </div>
+    </div>
+  )
+}
+
+// ── Image placeholder (cover grid) ────────────────────────────
+
+function ImagePlaceholder({ label, src, style }: { label: string; src?: string; style?: React.CSSProperties }) {
+  if (src) {
+    return (
+      <div style={{
+        borderRadius: 8,
+        overflow: "hidden",
+        border: "1px solid #E6DCD6",
+        ...style,
+      }}>
+        <img src={src} alt={label} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+      </div>
+    )
+  }
+
+  return (
+    <div style={{
+      background: "#FFFFFF",
+      border: "1px solid #E6DCD6",
+      borderRadius: 8,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 8,
+      padding: "16px 12px",
+      ...style,
+    }}>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C7BEFD" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+        <circle cx="12" cy="13" r="3"/>
+      </svg>
+      <p style={{
+        fontFamily: "'Manrope', sans-serif",
+        fontSize: 9, fontWeight: 700, letterSpacing: "1.2px",
+        textTransform: "uppercase", color: "#0C1946", margin: 0, textAlign: "center",
+      }}>{label}</p>
+      <p style={{
+        fontFamily: "'Manrope', sans-serif",
+        fontSize: 9, color: "#525776", margin: 0, textAlign: "center", lineHeight: 1.4,
+      }}>Replace with customer<br/>photography</p>
     </div>
   )
 }
@@ -179,62 +253,75 @@ function StatBlock({ value, label, dark = false }: { value: string; label: strin
 
 function CoverSlide() {
   return (
-    <Slide dark>
-      {/* Decorative bracket watermark */}
+    <Slide gradient>
+      <SlideHeader slideNum="01" />
+
+      {/* Two-column body */}
       <div style={{
-        position: "absolute",
-        right: -80,
-        top: -40,
-        fontFamily: "'Bricolage Grotesque', sans-serif",
-        fontWeight: 700,
-        fontSize: 600,
-        lineHeight: 1,
-        color: "rgba(34,83,255,0.06)",
-        userSelect: "none",
-        pointerEvents: "none",
+        flex: 1,
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gap: 0,
+        padding: "24px 56px 56px",
+        minHeight: 0,
       }}>
-        [
-      </div>
 
-      <SlideHeader dark slideNum="01" />
+        {/* Left — headline + byline */}
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", paddingRight: 40 }}>
+          <Eyebrow>The Measurement OS for online retail</Eyebrow>
 
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 56px 56px" }}>
-        <Eyebrow dark>Partner Intelligence Report · 2026</Eyebrow>
+          <h1 style={{
+            fontFamily: "'Bricolage Grotesque', sans-serif",
+            fontSize: "clamp(30px, 3.8vw, 54px)",
+            fontWeight: 400,
+            color: "#0C1946",
+            lineHeight: 1.0,
+            letterSpacing: "-0.03em",
+            margin: "20px 0 0",
+          }}>
+            Most measurement tells you{" "}
+            <strong style={{ fontWeight: 700 }}>what happened.</strong>
+            <br />
+            Fospha changes{" "}
+            <strong style={{ fontWeight: 700 }}>what happens next.</strong>
+          </h1>
 
-        <h1 style={{
-          fontFamily: "'Bricolage Grotesque', sans-serif",
-          fontSize: "clamp(40px, 5vw, 72px)",
-          fontWeight: 700,
-          color: "#FFFFFF",
-          lineHeight: 1.05,
-          letterSpacing: "-0.025em",
-          margin: "20px 0 24px",
-          maxWidth: 680,
+        </div>
+
+        {/* Right — diagonal 4-image grid: small TL, large BL, large TR, small BR */}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gridTemplateRows: "1fr 1fr 1fr",
+          gap: 10,
+          minHeight: 0,
         }}>
-          Know exactly what's driving your revenue
-        </h1>
-
-        <p style={{
-          fontFamily: "'Manrope', sans-serif",
-          fontSize: 16,
-          color: "rgba(255,255,255,0.65)",
-          lineHeight: 1.7,
-          margin: "0 0 40px",
-          maxWidth: 480,
-        }}>
-          Fospha gives marketers accurate, always-on attribution across every paid channel.
-        </p>
-
-        {/* Stats row */}
-        <div style={{ display: "flex", gap: 48, borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: 36 }}>
-          <StatBlock value="£2.4B+" label="Ad spend measured annually" dark />
-          <StatBlock value="3.2×"   label="Average ROAS uplift" dark />
-          <StatBlock value="200+"   label="Commerce brands" dark />
-          <StatBlock value="98%"    label="Signal coverage" dark />
+          <ImagePlaceholder label="Gymshark"     src="https://cdn.prod.website-files.com/68385b31d7418dca829caf03/690e08a98f2db7a4d0c83f16_asset-gymshark.avif"                        style={{ gridColumn: 1, gridRow: 1 }} />
+          <ImagePlaceholder label="Gymshark"     src="https://cdn.prod.website-files.com/68385b31d7418dca829caf03/69723aec551cb6f361ac94ff_asset-customer-gymshark.jpg"             style={{ gridColumn: 1, gridRow: "2 / 4" }} />
+          <ImagePlaceholder label="Hero"         src="https://cdn.prod.website-files.com/68385b31d7418dca829caf03/68625b18b65835d91d989269_hero.avif"                                  style={{ gridColumn: 2, gridRow: "1 / 3" }} />
+          <ImagePlaceholder label="Dyson"        src="https://cdn.prod.website-files.com/68385b31d7418dca829caf03/68cd265cd59db68189821dc1_dyson.avif"                        style={{ gridColumn: 2, gridRow: 3 }} />
         </div>
       </div>
 
-      <SlideFooter dark />
+      {/* Footer */}
+      <div style={{
+        position: "absolute",
+        bottom: 20,
+        left: 56,
+        right: 56,
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        fontFamily: "'Manrope', sans-serif",
+        fontSize: 10,
+        fontWeight: 500,
+        letterSpacing: "1px",
+        textTransform: "uppercase",
+        color: "#525776",
+      }}>
+        <span>Confidential</span>
+        <span>fospha.com</span>
+      </div>
     </Slide>
   )
 }
@@ -243,9 +330,9 @@ function CoverSlide() {
 
 function ProblemSlide() {
   const problems = [
-    { icon: "🍪", title: "Cookie deprecation", body: "Third-party cookies are gone. Last-click models are blind to 60–70% of the customer journey." },
-    { icon: "📊", title: "Siloed channel data", body: "Every platform reports its own numbers. No single view of what's actually driving revenue." },
-    { icon: "💸", title: "Misallocated budget", body: "Without accurate attribution, brands over-invest in easily measurable channels and starve upper funnel." },
+    { Icon: Cookie,      colour: SEC.lightBlue, title: "Cookie deprecation", body: "Third-party cookies are gone. Last-click models are blind to 60–70% of the customer journey." },
+    { Icon: Layers,      colour: SEC.yellow,    title: "Siloed channel data", body: "Every platform reports its own numbers. No single view of what's actually driving revenue." },
+    { Icon: TrendingDown, colour: SEC.peach,    title: "Misallocated budget", body: "Without accurate attribution, brands over-invest in easily measurable channels and starve upper funnel." },
   ]
 
   return (
@@ -257,30 +344,31 @@ function ProblemSlide() {
         <h2 style={{
           fontFamily: "'Bricolage Grotesque', sans-serif",
           fontSize: "clamp(28px, 3.5vw, 48px)",
-          fontWeight: 700,
+          fontWeight: 400,
           color: "#0C1946",
           lineHeight: 1.1,
           letterSpacing: "-0.02em",
           margin: "16px 0 36px",
           maxWidth: 600,
         }}>
-          Marketers are flying blind in a cookie-less world
+          Marketers are <strong style={{ fontWeight: 700 }}>flying blind</strong> in a cookie-less world
         </h2>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
           {problems.map((p) => (
             <div key={p.title} style={{
-              background: "#F6F2EF",
-              border: "1px solid #E6DCD6",
+              background: p.colour.bg,
               borderRadius: 10,
               padding: 28,
             }}>
-              <div style={{ fontSize: 28, marginBottom: 14 }}>{p.icon}</div>
+              <div style={{ marginBottom: 16 }}>
+                <p.Icon size={24} color={p.colour.text} strokeWidth={1.5} />
+              </div>
               <p style={{
                 fontFamily: "'Bricolage Grotesque', sans-serif",
                 fontSize: 18,
                 fontWeight: 600,
-                color: "#0C1946",
+                color: p.colour.text,
                 margin: "0 0 10px",
               }}>
                 {p.title}
@@ -288,7 +376,7 @@ function ProblemSlide() {
               <p style={{
                 fontFamily: "'Manrope', sans-serif",
                 fontSize: 13,
-                color: "#525776",
+                color: p.colour.muted,
                 lineHeight: 1.65,
                 margin: 0,
               }}>
@@ -325,13 +413,13 @@ function ProductSlide() {
         <h2 style={{
           fontFamily: "'Bricolage Grotesque', sans-serif",
           fontSize: "clamp(24px, 3vw, 40px)",
-          fontWeight: 700,
+          fontWeight: 400,
           color: "#0C1946",
           lineHeight: 1.1,
           letterSpacing: "-0.02em",
           margin: "14px 0 28px",
         }}>
-          Six products. One measurement platform.
+          Six products. <strong style={{ fontWeight: 700 }}>One measurement platform.</strong>
         </h2>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
@@ -344,13 +432,33 @@ function ProductSlide() {
                 borderRadius: 10,
                 padding: "20px 22px",
               }}>
-                <div style={{ marginBottom: 12 }}>
-                  <ProductChip product={key} />
+                {/* White badge with product-light border */}
+                <div style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 10,
+                  background: "#FFFFFF",
+                  border: `1px solid ${cfg.border}`,
+                  borderRadius: 10,
+                  padding: "8px 14px",
+                  marginBottom: 16,
+                  boxShadow: hexGlow(cfg.mid),
+                }}>
+                  <cfg.Icon size={18} color={cfg.mid} />
+                  <span style={{
+                    fontFamily: "'Manrope', sans-serif",
+                    fontSize: 13,
+                    fontWeight: 700,
+                    color: "#0C1946",
+                    letterSpacing: "0.01em",
+                  }}>
+                    {cfg.label}
+                  </span>
                 </div>
                 <p style={{
                   fontFamily: "'Manrope', sans-serif",
                   fontSize: 13,
-                  color: "#474747",
+                  color: "#0C1946",
                   lineHeight: 1.6,
                   margin: 0,
                 }}>
@@ -371,44 +479,42 @@ function ProductSlide() {
 
 function StatsSlide() {
   return (
-    <Slide dark>
-      <SlideHeader dark section="Results" slideNum="04" />
+    <Slide>
+      <SlideHeader section="Results" slideNum="04" />
 
       <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 56px 56px" }}>
-        <Eyebrow dark>What our customers see</Eyebrow>
+        <Eyebrow>What our customers see</Eyebrow>
         <h2 style={{
           fontFamily: "'Bricolage Grotesque', sans-serif",
           fontSize: "clamp(28px, 3.5vw, 48px)",
-          fontWeight: 700,
-          color: "#FFFFFF",
+          fontWeight: 400,
+          color: "#0C1946",
           lineHeight: 1.1,
           letterSpacing: "-0.02em",
           margin: "16px 0 40px",
           maxWidth: 560,
         }}>
-          Real results from brands like yours
+          <strong style={{ fontWeight: 700 }}>Real results</strong> from brands like yours
         </h2>
 
         {/* 2×2 stat grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, maxWidth: 700 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
           {[
-            { value: "+63%",  label: "Avg. TikTok spend increase after adopting Fospha", accent: "#2253FF" },
-            { value: "4.1×",  label: "Median measured ROAS on TikTok via Fospha",        accent: "#00CBBD" },
-            { value: "91%",   label: "Customers who retained or grew budgets at renewal", accent: "#FEB453" },
-            { value: "+38%",  label: "Revenue attributed to channels vs last-click",      accent: "#C7BEFD" },
+            { value: "+63%", label: "Avg. TikTok spend increase after adopting Fospha", colour: SEC.peach     },
+            { value: "4.1×", label: "Median measured ROAS on TikTok via Fospha",        colour: SEC.lightBlue },
+            { value: "91%",  label: "Customers who retained or grew budgets at renewal", colour: SEC.yellow    },
+            { value: "+38%", label: "Revenue attributed to channels vs last-click",      colour: SEC.cream     },
           ].map((s) => (
             <div key={s.value} style={{
-              background: "rgba(255,255,255,0.05)",
-              border: "1px solid rgba(255,255,255,0.1)",
+              background: s.colour.bg,
               borderRadius: 10,
               padding: "24px 28px",
-              borderLeft: `3px solid ${s.accent}`,
             }}>
               <p style={{
                 fontFamily: "'Bricolage Grotesque', sans-serif",
                 fontSize: 48,
                 fontWeight: 700,
-                color: "#FFFFFF",
+                color: s.colour.text,
                 margin: "0 0 8px",
                 lineHeight: 1,
                 letterSpacing: "-0.03em",
@@ -418,7 +524,7 @@ function StatsSlide() {
               <p style={{
                 fontFamily: "'Manrope', sans-serif",
                 fontSize: 12,
-                color: "rgba(255,255,255,0.55)",
+                color: s.colour.muted,
                 margin: 0,
                 lineHeight: 1.5,
               }}>
@@ -429,7 +535,7 @@ function StatsSlide() {
         </div>
       </div>
 
-      <SlideFooter dark />
+      <SlideFooter />
     </Slide>
   )
 }
@@ -541,39 +647,36 @@ function QuoteSlide() {
 
 function CTASlide() {
   return (
-    <Slide dark>
+    <Slide>
       {/* CTA gradient accent bar */}
       <div style={{
         position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        height: 4,
+        top: 0, left: 0, right: 0, height: 4,
         background: "linear-gradient(to right, #26ACFF, #6538FF)",
       }} />
 
-      <SlideHeader dark slideNum="06" />
+      <SlideHeader slideNum="06" />
 
       <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "0 56px 56px" }}>
-        <Eyebrow dark>Get started</Eyebrow>
+        <Eyebrow>Get started</Eyebrow>
 
         <h2 style={{
           fontFamily: "'Bricolage Grotesque', sans-serif",
           fontSize: "clamp(32px, 4vw, 60px)",
-          fontWeight: 700,
-          color: "#FFFFFF",
+          fontWeight: 400,
+          color: "#0C1946",
           lineHeight: 1.05,
           letterSpacing: "-0.025em",
           margin: "20px 0 20px",
           maxWidth: 640,
         }}>
-          Ready to see the full picture?
+          Ready to see the <strong style={{ fontWeight: 700 }}>full picture?</strong>
         </h2>
 
         <p style={{
           fontFamily: "'Manrope', sans-serif",
           fontSize: 16,
-          color: "rgba(255,255,255,0.65)",
+          color: "#525776",
           lineHeight: 1.7,
           margin: "0 0 40px",
           maxWidth: 440,
@@ -581,44 +684,36 @@ function CTASlide() {
           Join 200+ brands using Fospha to measure what matters and grow faster.
         </p>
 
-        {/* CTA buttons */}
         <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
           <button style={{
             padding: "12px 28px",
             background: "linear-gradient(to right, #26ACFF, #6538FF)",
             color: "#FFFFFF",
             fontFamily: "'Manrope', sans-serif",
-            fontSize: 14,
-            fontWeight: 600,
-            border: "none",
-            borderRadius: 6,
-            cursor: "pointer",
+            fontSize: 14, fontWeight: 600,
+            border: "none", borderRadius: 6, cursor: "pointer",
           }}>
             Request a demo
           </button>
           <button style={{
             padding: "12px 28px",
             background: "transparent",
-            color: "rgba(255,255,255,0.8)",
+            color: "#525776",
             fontFamily: "'Manrope', sans-serif",
-            fontSize: 14,
-            fontWeight: 600,
-            border: "1px solid rgba(255,255,255,0.2)",
-            borderRadius: 6,
-            cursor: "pointer",
+            fontSize: 14, fontWeight: 600,
+            border: "1px solid #E6DCD6",
+            borderRadius: 6, cursor: "pointer",
           }}>
             View case studies
           </button>
         </div>
 
-        {/* Logo row */}
         <div style={{ marginTop: 52, display: "flex", gap: 40, alignItems: "center" }}>
           {["ASOS", "Gymshark", "Charlotte Tilbury", "Huel", "Represent"].map((brand) => (
             <span key={brand} style={{
               fontFamily: "'Bricolage Grotesque', sans-serif",
-              fontSize: 14,
-              fontWeight: 700,
-              color: "rgba(255,255,255,0.25)",
+              fontSize: 14, fontWeight: 700,
+              color: "#D0CBCA",
               letterSpacing: "-0.01em",
             }}>
               {brand}
@@ -627,7 +722,297 @@ function CTASlide() {
         </div>
       </div>
 
-      <SlideFooter dark label="fospha.com" />
+      <SlideFooter label="fospha.com" />
+    </Slide>
+  )
+}
+
+// ── Block colour slide (split half-and-half template) ─────────
+
+type BlockVariant = "dark" | "blue" | "slate" | "cream"
+
+const BLOCK_CONFIG: Record<BlockVariant, {
+  panelBg: string
+  panelText: string
+  panelMuted: string
+  placeholderBorder: string
+  logoVariant: "colour" | "white"
+  label: string
+}> = {
+  dark:  { panelBg: "#0C1946", panelText: "#FFFFFF",   panelMuted: "rgba(255,255,255,0.45)", placeholderBorder: "rgba(255,255,255,0.25)", logoVariant: "white",  label: "Dark Navy"    },
+  blue:  { panelBg: "#2253FF", panelText: "#FFFFFF",   panelMuted: "rgba(255,255,255,0.55)", placeholderBorder: "rgba(255,255,255,0.35)", logoVariant: "white",  label: "Fospha Blue"  },
+  slate: { panelBg: "#525776", panelText: "#FFFFFF",   panelMuted: "rgba(255,255,255,0.55)", placeholderBorder: "rgba(255,255,255,0.3)",  logoVariant: "white",  label: "Muted Blue"   },
+  cream: { panelBg: "#F3EDE9", panelText: "#0C1946",   panelMuted: "#525776",                placeholderBorder: "#E6DCD6",                logoVariant: "colour", label: "Cream"        },
+}
+
+function BlockColorSlide({
+  variant,
+  slideNum,
+  section,
+  title,
+  titleEmphasis,
+  body,
+}: {
+  variant: BlockVariant
+  slideNum: string
+  section?: string
+  title: string
+  titleEmphasis?: string
+  body: string
+}) {
+  const cfg = BLOCK_CONFIG[variant]
+
+  return (
+    <Slide>
+      {/* Full-bleed absolute split so the colour panel runs edge-to-edge */}
+      <div style={{ position: "absolute", inset: 0, display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+
+        {/* Left — white panel with header / content / footer */}
+        <div style={{ display: "flex", flexDirection: "column", padding: "28px 48px 24px 56px" }}>
+
+          {/* Header */}
+          <div style={{
+            display: "flex", justifyContent: "space-between", alignItems: "center",
+            flexShrink: 0, marginBottom: 0,
+          }}>
+            <FosphaLogo height={16} variant="colour" />
+            <div style={{
+              display: "flex", gap: 16, alignItems: "center",
+              fontFamily: "'Manrope', sans-serif", fontSize: 11, fontWeight: 700,
+              letterSpacing: "1.5px", textTransform: "uppercase", color: "#525776",
+            }}>
+              {section && <span>{section}</span>}
+              {section && slideNum && <span style={{ width: 1, height: 10, background: "#E6DCD6" }} />}
+              {slideNum && <span style={{ color: "#0C1946", fontVariantNumeric: "tabular-nums" }}>{slideNum}</span>}
+            </div>
+          </div>
+
+          {/* Content */}
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <h2 style={{
+              fontFamily: "'Bricolage Grotesque', sans-serif",
+              fontSize: "clamp(24px, 3vw, 42px)",
+              fontWeight: 400,
+              color: "#0C1946",
+              lineHeight: 1.1,
+              letterSpacing: "-0.025em",
+              margin: "0 0 20px",
+            }}>
+              {title}{titleEmphasis && <> <strong style={{ fontWeight: 700 }}>{titleEmphasis}</strong></>}
+            </h2>
+            <p style={{
+              fontFamily: "'Manrope', sans-serif",
+              fontSize: 14, color: "#525776", lineHeight: 1.7,
+              margin: 0, maxWidth: 360,
+            }}>
+              {body}
+            </p>
+          </div>
+
+          {/* Footer */}
+          <div style={{
+            flexShrink: 0,
+            display: "flex", justifyContent: "space-between",
+            fontFamily: "'Manrope', sans-serif", fontSize: 10, fontWeight: 500,
+            letterSpacing: "1px", textTransform: "uppercase", color: "#AFAFAF",
+          }}>
+            <span>Confidential</span>
+            <span>fospha.com</span>
+          </div>
+        </div>
+
+        {/* Right — full-height solid colour panel */}
+        <div style={{
+          background: cfg.panelBg,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          position: "relative", padding: 40,
+        }}>
+          {/* Image placeholder */}
+          <div style={{
+            width: "80%", aspectRatio: "4/3",
+            border: `1.5px dashed ${cfg.placeholderBorder}`,
+            borderRadius: 8,
+            display: "flex", flexDirection: "column",
+            alignItems: "center", justifyContent: "center", gap: 10,
+          }}>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={cfg.panelMuted} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+              <circle cx="12" cy="13" r="3"/>
+            </svg>
+            <p style={{
+              fontFamily: "'Manrope', sans-serif", fontSize: 11,
+              color: cfg.panelMuted, margin: 0, letterSpacing: "0.5px",
+            }}>
+              Insert Picture (Fill)
+            </p>
+          </div>
+
+          {/* Variant label */}
+          <div style={{
+            position: "absolute", bottom: 24, left: 24,
+            fontFamily: "'Manrope', sans-serif", fontSize: 9, fontWeight: 700,
+            letterSpacing: "1.5px", textTransform: "uppercase", color: cfg.panelMuted,
+          }}>
+            {cfg.label}
+          </div>
+        </div>
+      </div>
+    </Slide>
+  )
+}
+
+// ── Case study slide ──────────────────────────────────────────
+
+interface CaseStat {
+  value: string
+  label: string
+  colour: typeof SEC[keyof typeof SEC]
+}
+
+function CaseStudySlide({
+  slideNum,
+  brand,
+  body,
+  stats,
+  cardPosition = "bottom-left",
+  bgSrc,
+}: {
+  slideNum: string
+  brand: string
+  body: string
+  stats: CaseStat[]
+  cardPosition?: "bottom-left" | "top-right" | "bottom-right"
+  bgSrc?: string
+}) {
+  const cardStyle: React.CSSProperties =
+    cardPosition === "bottom-left"  ? { bottom: 40, left: 40,  top: "auto",   right: "auto" } :
+    cardPosition === "bottom-right" ? { bottom: 40, right: 40, top: "auto",   left: "auto"  } :
+                                      { top: 40,    right: 40, bottom: "auto", left: "auto"  }
+
+  return (
+    <Slide>
+      {/* Full-bleed background */}
+      <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
+        {bgSrc ? (
+          <img src={bgSrc} alt={brand} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }} />
+        ) : (
+          <div style={{
+            width: "100%", height: "100%",
+            background: "linear-gradient(135deg, #8A939E 0%, #6B7280 50%, #9CA3AF 100%)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+          }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, opacity: 0.35 }}>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+                <circle cx="12" cy="13" r="3"/>
+              </svg>
+              <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: 12, color: "#FFFFFF", margin: 0, letterSpacing: "1px", textTransform: "uppercase" }}>
+                Replace with customer photography
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Minimal top-left header */}
+      <div style={{
+        position: "absolute", top: 20, left: 28,
+        display: "flex", gap: 10, alignItems: "center",
+        fontFamily: "'Manrope', sans-serif", fontSize: 10, fontWeight: 700,
+        letterSpacing: "1.5px", textTransform: "uppercase",
+        color: "rgba(255,255,255,0.5)",
+      }}>
+        <FosphaLogo height={13} variant="white" />
+      </div>
+
+      {/* Slide number top-right */}
+      <div style={{
+        position: "absolute", top: 22, right: 28,
+        fontFamily: "'Manrope', sans-serif", fontSize: 10, fontWeight: 700,
+        letterSpacing: "1.5px", color: "rgba(255,255,255,0.4)",
+      }}>
+        {slideNum}
+      </div>
+
+      {/* Case study card */}
+      <div style={{
+        position: "absolute",
+        ...cardStyle,
+        background: "rgba(12, 25, 70, 0.88)",
+        backdropFilter: "blur(8px)",
+        borderRadius: 16,
+        padding: "32px 36px",
+        maxWidth: "58%",
+        display: "grid",
+        gridTemplateColumns: "1fr auto",
+        gap: 24,
+        alignItems: "start",
+      }}>
+        {/* Left: brand + body */}
+        <div>
+          <p style={{
+            fontFamily: "'Bricolage Grotesque', sans-serif",
+            fontSize: "clamp(28px, 2.8vw, 44px)",
+            fontWeight: 700,
+            color: "#FFFFFF",
+            margin: "0 0 16px",
+            lineHeight: 1,
+            letterSpacing: "-0.03em",
+          }}>
+            {brand}
+          </p>
+          <p style={{
+            fontFamily: "'Manrope', sans-serif",
+            fontSize: 13,
+            color: "rgba(255,255,255,0.7)",
+            lineHeight: 1.7,
+            margin: 0,
+          }}>
+            {body}
+          </p>
+        </div>
+
+        {/* Right: stat cards */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 10, minWidth: 160 }}>
+          {stats.map((s) => (
+            <div key={s.value} style={{
+              background: s.colour.bg,
+              borderRadius: 10,
+              padding: "16px 20px",
+            }}>
+              <p style={{
+                fontFamily: "'Bricolage Grotesque', sans-serif",
+                fontSize: 40,
+                fontWeight: 700,
+                color: s.colour.text,
+                margin: "0 0 4px",
+                lineHeight: 1,
+                letterSpacing: "-0.03em",
+              }}>
+                {s.value}
+              </p>
+              <p style={{
+                fontFamily: "'Manrope', sans-serif",
+                fontSize: 12,
+                color: s.colour.muted,
+                margin: 0,
+                lineHeight: 1.4,
+              }}>
+                {s.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Footer page number */}
+      <div style={{
+        position: "absolute", bottom: 16, left: 28,
+        fontFamily: "'Manrope', sans-serif", fontSize: 10, fontWeight: 500,
+        letterSpacing: "1px", color: "rgba(255,255,255,0.35)",
+      }}>
+        {slideNum}
+      </div>
     </Slide>
   )
 }
@@ -646,6 +1031,57 @@ export default function DeckPage() {
     { label: "Results",        component: <StatsSlide />   },
     { label: "Customer Story", component: <QuoteSlide />   },
     { label: "CTA",            component: <CTASlide />     },
+    {
+      label: "Block — Dark",
+      component: <BlockColorSlide variant="dark" slideNum="07" section="Chapter 01"
+        title="The measurement gap" titleEmphasis="is costing you."
+        body="Most attribution models miss 60–70% of the customer journey. Fospha closes that gap with always-on, channel-level measurement built for modern commerce." />
+    },
+    {
+      label: "Block — Blue",
+      component: <BlockColorSlide variant="blue" slideNum="08" section="Solution"
+        title="One platform." titleEmphasis="Complete visibility."
+        body="Fospha unifies signal from every paid channel — search, social, affiliates, and more — into a single, decision-ready view of what's driving revenue." />
+    },
+    {
+      label: "Block — Slate",
+      component: <BlockColorSlide variant="slate" slideNum="09" section="How it works"
+        title="Measurement that works" titleEmphasis="day one."
+        body="No complex integrations. No waiting. Fospha connects to your existing ad accounts and starts returning accurate attribution data within 48 hours." />
+    },
+    {
+      label: "Block — Cream",
+      component: <BlockColorSlide variant="cream" slideNum="10" section="Outcomes"
+        title="Grow faster with" titleEmphasis="confidence."
+        body="Brands using Fospha see an average 3.2× ROAS uplift within 90 days — because every budget decision is backed by data you can trust." />
+    },
+    {
+      label: "Case Study — Gymshark",
+      component: <CaseStudySlide
+        slideNum="11"
+        brand="Gymshark"
+        body="Fospha feeds Smartly. Budgets reallocate across Meta, TikTok, Snapchat and Pinterest in real time — no manual intervention."
+        cardPosition="bottom-left"
+        bgSrc="https://uk.gymshark.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fwl6q2in9o7k3%2F3JMCbRk2lmWe8JzvocrEd3%2Fb5361cb48a545b862e7ac3391adaee41%2F5x4_App_Coming_Soon_-_26126042.jpeg&w=3840&q=85"
+        stats={[
+          { value: "+13%", label: "cross-channel ROAS",  colour: SEC.lightBlue },
+          { value: "+98%", label: "TikTok US revenue",   colour: SEC.peach     },
+        ]}
+      />
+    },
+    {
+      label: "Case Study — Huel",
+      component: <CaseStudySlide
+        slideNum="12"
+        brand="Huel®"
+        body="Beam's saturation modelling identified a channel approaching diminishing returns. Reduced UK spend by 20% with no impact on revenue. Huel have used Fospha across $30M to $300M in growth — measurement at the heart of every budget decision."
+        cardPosition="bottom-right"
+        bgSrc="https://cdn.prod.website-files.com/68385b31d7418dca829caf13/6839cd41388a9b09c696230f_Frame%201000003746-2.png"
+        stats={[
+          { value: "20%", label: "spend reduction — zero revenue impact", colour: SEC.lightBlue },
+        ]}
+      />
+    },
   ]
 
   return (
@@ -736,6 +1172,7 @@ export default function DeckPage() {
         borderTop: "1px solid rgba(255,255,255,0.08)",
         padding: "12px 32px",
         display: "flex",
+        justifyContent: "center",
         gap: 12,
         overflowX: "auto",
         flexShrink: 0,
@@ -755,8 +1192,11 @@ export default function DeckPage() {
               background: "none",
             }}
           >
-            <div style={{ transform: "scale(0.145)", transformOrigin: "top left", width: 965, height: 543, pointerEvents: "none" }}>
-              {s.component}
+            {/* Fixed-height clip so scale() doesn't push the layout */}
+            <div style={{ width: 140, height: 79, overflow: "hidden", position: "relative", flexShrink: 0 }}>
+              <div style={{ transform: "scale(0.145)", transformOrigin: "top left", width: 965, height: 543, pointerEvents: "none", position: "absolute", top: 0, left: 0 }}>
+                {s.component}
+              </div>
             </div>
             <p style={{
               fontFamily: "'Manrope', sans-serif",

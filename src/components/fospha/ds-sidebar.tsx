@@ -14,6 +14,7 @@ import {
   FileText,
   LayoutDashboard,
   Image as ImageIcon,
+  Presentation,
 } from "lucide-react"
 import { FosphaLogo, FosphaLogomark } from "@/components/fospha/icons"
 
@@ -34,9 +35,10 @@ const DS_SECTIONS = [
 ]
 
 const EXTERNAL_LINKS = [
-  { label: "Demo Dashboard", href: "/dashboard",               icon: <LayoutDashboard size={16} />, target: "_blank" },
-  { label: "Campaign Page",  href: "/campaign",                icon: <Megaphone size={16} />,       target: "_blank" },
-  { label: "Component Docs", href: "/docs", icon: <FileText size={16} />,    target: "_blank" },
+  { label: "Demo Dashboard", href: "/dashboard", icon: <LayoutDashboard size={16} />, target: "_blank" },
+  { label: "Campaign Page",  href: "/campaign",  icon: <Megaphone size={16} />,       target: "_blank" },
+  { label: "Slide Deck",     href: "/deck",      icon: <Presentation size={16} />,    target: "_blank" },
+  { label: "Component Docs", href: "/docs",      icon: <FileText size={16} />,        target: "_blank" },
 ]
 
 interface DSSidebarProps {

@@ -32,6 +32,27 @@ section.slide.dark h2,
 section.slide.dark h3 { color: var(--fg-on-dark-1); }
 
 /* ─────────────────────────────────────────────────────────────
+   SIGNATURE GRADIENT SURFACE
+   White at the centre, brand cream at the edges. Used on cover
+   slides, section intros, and any "hero moment" where a flat
+   white feels too bare. Dark-blue type on top.
+   ───────────────────────────────────────────────────────────── */
+section.slide.gradient {
+  background:
+    radial-gradient(ellipse 85% 65% at 50% 50%,
+      #FFFFFF 0%,
+      var(--fos-cream-light) 30%,   /* #F6F2EF */
+      var(--fos-cream) 65%,         /* #F3EDE9 */
+      var(--fos-cream-dark) 100%);  /* #E6DCD6 */
+  color: var(--fos-dark-blue);
+}
+
+/* Header / footer colour handling on gradient surface */
+section.slide.gradient .hdr .meta      { color: var(--fos-muted-blue); }
+section.slide.gradient .hdr .meta .num { color: var(--fos-dark-blue); }
+section.slide.gradient .footer         { color: var(--fos-muted-blue); }
+
+/* ─────────────────────────────────────────────────────────────
    SLIDE TYPE SCALE
    Presentation-sized. Use these instead of hand-picked px sizes.
    ───────────────────────────────────────────────────────────── */

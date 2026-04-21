@@ -594,7 +594,33 @@ Pure CSS classes defined in `src/styles/components.css` and `src/styles/slides.c
 @import "styles/slides.css";
 ```
 
-Slides use a 1920×1080px fixed canvas (`--slide-width` / `--slide-height`). Wrap every slide in `<section class="slide">` (light) or `<section class="slide dark">` (dark navy).
+Slides use a 1920×1080px fixed canvas (`--slide-width` / `--slide-height`). Wrap every slide in `<section class="slide">` (light), `<section class="slide dark">` (dark navy), or `<section class="slide gradient">` (signature cream→white radial — covers and pillar intros only).
+
+---
+
+### Signature gradient surface
+
+Radial gradient from white at the centre to `--fos-cream-dark` at the edges. Reserved for **covers** and **section / pillar intro slides**. Always pairs with dark-blue type.
+
+| Class | Fill |
+|---|---|
+| `.slide.gradient` | `radial-gradient(ellipse 85% 65% at 50% 50%, #FFFFFF 0%, var(--fos-cream-light) 30%, var(--fos-cream) 65%, var(--fos-cream-dark) 100%)` |
+
+```html
+<section class="slide gradient">
+  <div class="frame">
+    <div class="hdr">…</div>
+    <!-- cover content -->
+    <div class="footer">…</div>
+  </div>
+</section>
+```
+
+**Rules:**
+- `.gradient` and `.dark` are mutually exclusive.
+- Cover slides and pillar / section intros only — do not use on content slides, stats, or data-heavy layouts.
+- Type on top is always `--fos-dark-blue`.
+- This is a **background** gradient; it does not replace the approved CTA gradient (`#26ACFF → #6538FF`) which remains the only approved gradient for buttons / banners.
 
 ---
 

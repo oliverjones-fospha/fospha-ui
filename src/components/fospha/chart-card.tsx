@@ -423,8 +423,9 @@ export function FosphaBarChart({
             maxBarSize={48}
             shape={series.length === 1
               ? (props: BarShapeProps) => {
-                  const fill = DATA_COLOURS[props.index % DATA_COLOURS.length]
-                  return <rect {...(props as React.SVGProps<SVGRectElement>)} fill={fill} />
+                  const { x, y, width, height, index } = props
+                  const fill = DATA_COLOURS[(index ?? 0) % DATA_COLOURS.length]
+                  return <rect x={x} y={y} width={width} height={height} fill={fill} rx={2} />
                 }
               : undefined
             }
