@@ -149,6 +149,10 @@ export default function DesignSystemPage() {
             <a href="/docs" target="_blank" style={{ fontFamily: "'Manrope', sans-serif", fontSize: 13, fontWeight: 600, color: "#2253FF", textDecoration: "none" }}>
               Component docs →
             </a>
+            <span style={{ color: "#E6DCD6" }}>|</span>
+            <a href="/deck" target="_blank" style={{ fontFamily: "'Manrope', sans-serif", fontSize: 13, fontWeight: 600, color: "#2253FF", textDecoration: "none" }}>
+              Slide deck →
+            </a>
           </div>
         </div>
 
@@ -346,19 +350,19 @@ export default function DesignSystemPage() {
         <Section id="typography" title="Typography">
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
             <div>
-              <p style={{ fontSize: 11, color: "#AFAFAF", fontFamily: "'Manrope',sans-serif", marginBottom: 4 }}>Display / Hero — Bricolage Grotesque Bold 54px</p>
-              <p style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontSize: 54, fontWeight: 700, color: "#0C1946", margin: 0, lineHeight: 1 }}>The quick brown fox</p>
+              <p style={{ fontSize: 11, color: "#AFAFAF", fontFamily: "'Manrope',sans-serif", marginBottom: 4 }}>Display / Hero — Bricolage Grotesque Regular 54px (bold emphasis via &lt;strong&gt;)</p>
+              <h1 style={{ fontSize: 54, margin: 0, lineHeight: 1 }}>The quick <strong style={{ fontWeight: 700 }}>brown fox</strong></h1>
             </div>
             <div>
-              <p style={{ fontSize: 11, color: "#AFAFAF", fontFamily: "'Manrope',sans-serif", marginBottom: 4 }}>H1 — Bricolage Grotesque SemiBold 40px</p>
+              <p style={{ fontSize: 11, color: "#AFAFAF", fontFamily: "'Manrope',sans-serif", marginBottom: 4 }}>H1 — Bricolage Grotesque Regular 40px</p>
               <h1 style={{ margin: 0 }}>Campaign Dashboard</h1>
             </div>
             <div>
-              <p style={{ fontSize: 11, color: "#AFAFAF", fontFamily: "'Manrope',sans-serif", marginBottom: 4 }}>H2 — Bricolage Grotesque SemiBold 28px</p>
+              <p style={{ fontSize: 11, color: "#AFAFAF", fontFamily: "'Manrope',sans-serif", marginBottom: 4 }}>H2 — Bricolage Grotesque Regular 28px</p>
               <h2 style={{ margin: 0 }}>Section Heading</h2>
             </div>
             <div>
-              <p style={{ fontSize: 11, color: "#AFAFAF", fontFamily: "'Manrope',sans-serif", marginBottom: 4 }}>H3 — Bricolage Grotesque Medium 24px</p>
+              <p style={{ fontSize: 11, color: "#AFAFAF", fontFamily: "'Manrope',sans-serif", marginBottom: 4 }}>H3 — Bricolage Grotesque Regular 24px</p>
               <h3 style={{ margin: 0 }}>Card Title</h3>
             </div>
             <div>
@@ -387,20 +391,12 @@ export default function DesignSystemPage() {
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
               <FosphaButton variant="primary">Primary</FosphaButton>
               <FosphaButton variant="secondary">Secondary</FosphaButton>
-              <FosphaButton variant="cta">CTA Gradient</FosphaButton>
               <FosphaButton variant="ghost">Ghost</FosphaButton>
             </div>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
               <FosphaButton variant="primary" size="sm">Small</FosphaButton>
               <FosphaButton variant="primary" size="md">Medium</FosphaButton>
               <FosphaButton variant="primary" size="lg">Large</FosphaButton>
-            </div>
-            {/* CTA gradient on dark */}
-            <div className="fos-cta-gradient" style={{ padding: 24, borderRadius: 8, display: "flex", gap: 12, alignItems: "center" }}>
-              <p style={{ color: "#FFFFFF", fontFamily: "'Manrope',sans-serif", fontSize: 14, margin: 0, flex: 1 }}>
-                CTA banner — the only approved gradient use case
-              </p>
-              <FosphaButton variant="secondary">Learn more</FosphaButton>
             </div>
           </div>
         </Section>
@@ -644,7 +640,7 @@ export default function DesignSystemPage() {
               Large stat numbers must always be white — never a data colour.
             </p>
             <div style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center", marginBottom: 32 }}>
-              <FosphaButton variant="cta">CTA Button</FosphaButton>
+              <FosphaButton variant="primary">Primary Button</FosphaButton>
               <FosphaButton variant="ghost" style={{ color: "#E3EEFF" }}>Ghost on Dark</FosphaButton>
             </div>
             {/* Stat callouts on dark */}
@@ -666,18 +662,17 @@ export default function DesignSystemPage() {
         {/* ── Marketing sections ── */}
         <Section id="marketing" title="Marketing — Hero Section">
           <HeroSection
-            eyebrow="Introducing Fospha"
-            headline="The attribution platform for growth"
+            eyebrow="The Measurement OS for online retail"
+            headline={<>Measurement that <strong style={{ fontWeight: 700 }}>changes what happens next.</strong></>}
             subheadline="Understand what's really driving your revenue — across every channel, campaign, and customer journey."
             primaryCta={{ label: "Request a demo", href: "#" }}
-            secondaryCta={{ label: "Learn more", href: "#" }}
           />
         </Section>
 
         <Section title="Marketing — Timeline">
           <TimelineSection
             eyebrow="How it works"
-            headline="From data to decisions in minutes"
+            headline={<>From data to <strong style={{ fontWeight: 700 }}>decisions</strong> in minutes</>}
             steps={[
               { number: "01", title: "Connect your channels", description: "Integrate all your marketing platforms in one click." },
               { number: "02", title: "Unified data model", description: "Fospha normalises and deduplicates your data automatically." },
@@ -690,7 +685,7 @@ export default function DesignSystemPage() {
         <Section title="Marketing — Testimonials">
           <TestimonialSection
             eyebrow="Customer stories"
-            headline="Trusted by leading growth teams"
+            headline={<>Trusted by <strong style={{ fontWeight: 700 }}>leading growth teams</strong></>}
             testimonials={[
               { quote: "Fospha completely changed how we allocate budget. We found 30% more revenue hiding in channels we'd been under-investing in.", name: "Sarah Chen", title: "VP Marketing", company: "Bloom & Wild" },
               { quote: "The attribution accuracy is unlike anything we've tried before. It's become the single source of truth for our performance team.", name: "James Okafor", title: "Head of Performance", company: "ASOS" },
@@ -701,7 +696,7 @@ export default function DesignSystemPage() {
 
         <Section title="Marketing — Award Strip">
           <AwardStrip
-            background="cream"
+            background="white"
             awards={[
               { title: "G2 Leader", body: "Winter 2024" },
               { title: "Best ROI", body: "MarTech Breakthrough" },
@@ -714,7 +709,7 @@ export default function DesignSystemPage() {
         <Section title="Marketing — Comparison Table">
           <ComparisonTable
             eyebrow="Why Fospha"
-            headline="See how we compare"
+            headline={<>See how we <strong style={{ fontWeight: 700 }}>compare</strong></>}
             tierNames={["Fospha", "Competitor A", "Competitor B"]}
             rows={[
               { feature: "Cross-channel attribution", tiers: [true,  false, false] },
@@ -731,7 +726,7 @@ export default function DesignSystemPage() {
             videoUrl="https://www.youtube.com/embed/dQw4w9WgXcQ"
             background="dark"
             eyebrow="See it in action"
-            headline="Watch Fospha in 2 minutes"
+            headline={<>Watch Fospha <strong style={{ fontWeight: 700 }}>in 2 minutes</strong></>}
           />
         </Section>
 
@@ -739,7 +734,7 @@ export default function DesignSystemPage() {
           <TeamSection
             background="white"
             eyebrow="Our team"
-            headline="The people behind Fospha"
+            headline={<>The people <strong style={{ fontWeight: 700 }}>behind Fospha</strong></>}
             members={[
               { name: "Sam Carter",      title: "CEO" },
               { name: "Dom Devlin",      title: "CPO" },
@@ -753,7 +748,7 @@ export default function DesignSystemPage() {
           <FAQSection
             columns={1}
             eyebrow="FAQ"
-            headline="Common questions"
+            headline={<>Common <strong style={{ fontWeight: 700 }}>questions</strong></>}
             items={[
               { question: "How long does onboarding take?",         answer: "Most customers are fully onboarded within 2 business days. Our team handles all the heavy lifting." },
               { question: "Does Fospha work without cookies?",      answer: "Yes. Fospha is built for a cookieless world, using first-party data and probabilistic modelling." },
@@ -764,7 +759,7 @@ export default function DesignSystemPage() {
 
         <Section title="Marketing — CTA Banner">
           <CTABanner
-            headline="Ready to find your hidden revenue?"
+            headline={<>Ready to find your <strong style={{ fontWeight: 700 }}>hidden revenue?</strong></>}
             subheadline="Join hundreds of growth teams using Fospha to make smarter budget decisions."
             primaryCta={{ label: "Book a demo", href: "#" }}
             secondaryCta={{ label: "Talk to sales", href: "#" }}

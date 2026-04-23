@@ -23,7 +23,7 @@ interface Testimonial {
 
 interface TestimonialSectionProps {
   eyebrow?: string
-  headline?: string
+  headline?: React.ReactNode
   testimonials: Testimonial[]
   background?: "white" | "cream" | "dark"
 }
@@ -156,7 +156,7 @@ interface FAQItem {
 
 interface FAQSectionProps {
   eyebrow?: string
-  headline?: string
+  headline?: React.ReactNode
   items: FAQItem[]
   background?: "white" | "cream"
   columns?: 1 | 2
@@ -260,7 +260,7 @@ interface ComparisonRow {
 
 interface ComparisonTableProps {
   eyebrow?: string
-  headline?: string
+  headline?: React.ReactNode
   tierNames: string[]
   highlightedTier?: number
   rows: ComparisonRow[]
@@ -375,7 +375,7 @@ interface TimelineStep {
 
 interface TimelineSectionProps {
   eyebrow?: string
-  headline?: string
+  headline?: React.ReactNode
   subheadline?: string
   steps: TimelineStep[]
   background?: "white" | "cream" | "dark"
@@ -456,7 +456,7 @@ export function TimelineSection({
               <h3 style={{
                 fontFamily: "'Bricolage Grotesque', sans-serif",
                 fontSize: 18,
-                fontWeight: 600,
+                fontWeight: 400,
                 color: isDark ? "#FFFFFF" : "#0C1946",
                 margin: "0 0 12px 0",
               }}>
@@ -483,7 +483,7 @@ export function TimelineSection({
 
 interface VideoSectionProps {
   eyebrow?: string
-  headline?: string
+  headline?: React.ReactNode
   subheadline?: string
   videoUrl: string        // YouTube or Vimeo embed URL
   posterUrl?: string      // Optional thumbnail
@@ -581,7 +581,7 @@ interface TeamMember {
 
 interface TeamSectionProps {
   eyebrow?: string
-  headline?: string
+  headline?: React.ReactNode
   members: TeamMember[]
   background?: "white" | "cream"
 }
@@ -637,7 +637,7 @@ export function TeamSection({
 
               {/* Info */}
               <div>
-                <p style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 16, fontWeight: 600, color: "#0C1946", margin: "0 0 2px 0" }}>
+                <p style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 16, fontWeight: 400, color: "#0C1946", margin: "0 0 2px 0" }}>
                   {member.name}
                 </p>
                 <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: 13, color: "#2253FF", margin: "0 0 8px 0", fontWeight: 500 }}>
@@ -701,7 +701,7 @@ export function AwardStrip({
               alignItems: "center",
               textAlign: "center",
               padding: "24px 40px",
-              borderLeft: i > 0 ? `1px solid ${isDark ? "rgba(255,255,255,0.1)" : "#E6DCD6"}` : "none",
+              borderLeft: i > 0 ? `1px solid ${isDark ? "rgba(255,255,255,0.1)" : "#F0EBE7"}` : "none",
               gap: 8,
             }}>
               {/* Gold star icon */}
@@ -710,7 +710,7 @@ export function AwardStrip({
               <p style={{
                 fontFamily: "'Bricolage Grotesque', sans-serif",
                 fontSize: 15,
-                fontWeight: 700,
+                fontWeight: 400,
                 color: isDark ? "#FFFFFF" : "#0C1946",
                 margin: 0,
                 lineHeight: 1.3,

@@ -159,13 +159,13 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: "Bricolage Grotesque", sans-serif;
   color: var(--fos-dark-blue);
-  font-weight: 600;
+  font-weight: 400;
 }
 
 h1 { font-size: clamp(40px, 5vw, 48px); }
 h2 { font-size: clamp(28px, 4vw, 36px); }
-h3 { font-size: 24px; font-weight: 500; }
-h4 { font-size: 20px; font-weight: 500; }
+h3 { font-size: 24px; }
+h4 { font-size: 20px; }
 
 a { color: var(--fos-blue); text-decoration: none; }
 

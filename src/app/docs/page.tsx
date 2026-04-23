@@ -36,13 +36,13 @@ export default function DocsPage() {
           <ReactMarkdown
             components={{
               h1: ({ children }) => (
-                <h1 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontSize: 40, fontWeight: 700, color: "#0C1946", margin: "0 0 8px" }}>{children}</h1>
+                <h1 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontSize: 40, fontWeight: 400, color: "#0C1946", margin: "0 0 8px" }}>{children}</h1>
               ),
               h2: ({ children }) => (
-                <h2 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontSize: 24, fontWeight: 600, color: "#0C1946", margin: "48px 0 16px", paddingTop: 48, borderTop: "1px solid #E6DCD6" }}>{children}</h2>
+                <h2 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontSize: 24, fontWeight: 400, color: "#0C1946", margin: "48px 0 16px", paddingTop: 48, borderTop: "1px solid #E6DCD6" }}>{children}</h2>
               ),
               h3: ({ children }) => (
-                <h3 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontSize: 18, fontWeight: 600, color: "#0C1946", margin: "32px 0 12px" }}>{children}</h3>
+                <h3 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontSize: 18, fontWeight: 400, color: "#0C1946", margin: "32px 0 12px" }}>{children}</h3>
               ),
               p: ({ children }) => (
                 <p style={{ margin: "0 0 16px", lineHeight: 1.8 }}>{children}</p>

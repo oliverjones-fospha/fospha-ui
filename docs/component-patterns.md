@@ -55,13 +55,34 @@ src/
 
 ## Global Design Rules
 
+### Background preference — light-first rule
+
+**All artefacts (pages, marketing sections, decks, components) default to light backgrounds.**
+
+| Surface | Preferred background |
+|---|---|
+| Default / body | `#FFFFFF` white |
+| Sections / blocks | `#F3EDE9` cream or `#F6F2EF` light cream |
+| Hero / cover / intro sections | Cream–white radial gradient: `radial-gradient(ellipse 85% 65% at 50% 50%, #FFFFFF 0%, #F6F2EF 30%, #F3EDE9 65%, #E6DCD6 100%)` |
+| Dark navy `#0C1946` | Use **sparingly** — only to break page flow or create high-emphasis contrast |
+
+**Dark blue background rules:**
+- ✅ Allowed in small doses: stat bars, accent panels, split-layout colour blocks (half the slide/section)
+- ✅ Allowed in decks as a panel colour in split block slides (left/right half only)
+- ❌ Never use dark blue as a full-slide or full-page background in decks
+- ❌ Never default to dark navy — always justify its use as a deliberate contrast moment
+
+**In decks specifically:**
+- Front cover and introductory section slides → cream/white radial gradient
+- Standard content slides → white `#FFFFFF`
+- Full-bleed backgrounds → photography only (never a flat dark colour)
+
 ### Colours
-- ❌ No gradients on text, headings, chart fills, icons, or section backgrounds
+- ❌ No gradients on text, headings, chart fills, or icons
 - ❌ No data palette colours (`#00CBBD`, `#FEB453` etc.) as text colours ever
 - ❌ No unapproved colours — never introduce colours outside the defined palette
 - ❌ Product ramp lighter backgrounds must only appear on **white** section backgrounds — never on cream (they clash)
 - ✅ Page backgrounds always `#FFFFFF`, dashboard content area `#F6F2EF`, marketing page wrapper `#F6F2EF`
-- ✅ The only approved gradient is the CTA banner: `#26ACFF → #6538FF` left to right
 - ✅ Stat/KPI numbers on dark backgrounds must always be `#FFFFFF` — never a data colour
 
 ### Product Colour Usage Rules
@@ -88,7 +109,86 @@ Each product has a four-shade ramp. Always apply shades by role:
 
 **Critical product colour rule:** Product ramp lighter/light backgrounds must never appear on cream section backgrounds — use white sections only.
 
+### Product Brand Presentation
+
+There are two modes for presenting a product icon and name. Use the correct mode based on context.
+
+---
+
+#### Mode 1 — Badge / title
+
+Use when the product name appears inline as a label, chip, or card title (e.g. in a product grid, feature card header, or slide badge).
+
+**Rules:**
+- **Background:** `#FFFFFF` white
+- **Corner radius:** `8–10px` — never a pill shape
+- **Border:** `1px solid` using the product **light** shade
+- **Glow:** `box-shadow: 0 0 20px rgba(<mid>, 0.4)` — mid shade at 40% opacity
+- **Icon:** product **color** (dark shade), sized `16–20px`
+- **Label text:** `#0C1946` dark blue, Manrope bold, `12–14px`
+
+```tsx
+// Example — Core badge
+<div style={{
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 10,
+  background: "#FFFFFF",
+  border: "1px solid #D4DBF7",          // light shade
+  borderRadius: 10,
+  padding: "8px 14px",
+  boxShadow: "0 0 20px rgba(103,135,254,0.4)",  // mid shade at 40%
+}}>
+  <CoreIcon size={18} color="#1B45E4" />  {/* dark shade */}
+  <span style={{ fontFamily: "'Manrope',sans-serif", fontSize: 13, fontWeight: 700, color: "#0C1946" }}>
+    Core
+  </span>
+</div>
+```
+
+---
+
+#### Mode 2 — Icon only / large
+
+Use when icons are displayed at scale without label framing — e.g. as decorative elements, large product feature visuals, or hero moments in a slide.
+
+**Rules:**
+- **No badge frame** — icon floats on the section background directly
+- **Icon size:** `32px` or larger
+- **Icon colour:** product **color** (dark shade)
+- **Label (if shown):** Manrope bold, `#0C1946`, centered below the icon — never inside a badge
+
+```tsx
+// Example — Halo icon, large
+<HaloIcon size={40} color="#008048" />  {/* dark shade */}
+<span style={{ fontFamily: "'Manrope',sans-serif", fontWeight: 700, color: "#0C1946", fontSize: 14 }}>
+  Halo
+</span>
+```
+
+---
+
+**Never mix the two modes** — don't put a large icon inside a badge frame, and don't use the small badge icon without its white background and border.
+
 ### Typography
+
+**Bricolage heading/title weight and colour rule:**
+
+- ✅ All Bricolage headings, titles, and display text are **`fontWeight: 400` (regular) by default**
+- ✅ `fontWeight: 700` (bold) is used only for emphasis on a specific important word or phrase — applied via `<strong style={{ fontWeight: 700 }}>` inline, never to the whole heading
+- ✅ On **light backgrounds**: Bricolage text must be `#0C1946` (dark blue) only — no product colours, accent colours, or any other colour as heading text
+- ✅ On **dark backgrounds**: Bricolage text must be `#FFFFFF` white only — no colour accents
+- ❌ Never use product ramp colours, data palette colours, or any other accent colour for heading/title text
+- ❌ Never set `fontWeight: 600` or `fontWeight: 700` on an entire heading element — use `<strong>` for inline emphasis only
+
+**Example — correct pattern:**
+```tsx
+<h2 style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontWeight: 400, color: "#0C1946" }}>
+  Most measurement tells you what happened.{" "}
+  <strong style={{ fontWeight: 700 }}>Fospha changes what happens next.</strong>
+</h2>
+```
+
 - ❌ Never apply gradient fills to any text
 - ❌ Never centre-align body or paragraph text
 - ✅ Headings always Bricolage Grotesque, body always Manrope, pull quotes PT Serif italic

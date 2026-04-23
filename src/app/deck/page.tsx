@@ -364,15 +364,13 @@ function ProblemSlide() {
               <div style={{ marginBottom: 16 }}>
                 <p.Icon size={24} color={p.colour.text} strokeWidth={1.5} />
               </div>
-              <p style={{
-                fontFamily: "'Bricolage Grotesque', sans-serif",
+              <h3 style={{
                 fontSize: 18,
-                fontWeight: 600,
                 color: p.colour.text,
                 margin: "0 0 10px",
               }}>
                 {p.title}
-              </p>
+              </h3>
               <p style={{
                 fontFamily: "'Manrope', sans-serif",
                 fontSize: 13,
@@ -444,7 +442,7 @@ function ProductSlide() {
                   marginBottom: 16,
                   boxShadow: hexGlow(cfg.mid),
                 }}>
-                  <cfg.Icon size={18} color={cfg.mid} />
+                  <cfg.Icon size={18} color={cfg.color} />
                   <span style={{
                     fontFamily: "'Manrope', sans-serif",
                     fontSize: 13,
@@ -648,13 +646,6 @@ function QuoteSlide() {
 function CTASlide() {
   return (
     <Slide>
-      {/* CTA gradient accent bar */}
-      <div style={{
-        position: "absolute",
-        top: 0, left: 0, right: 0, height: 4,
-        background: "linear-gradient(to right, #26ACFF, #6538FF)",
-      }} />
-
       <SlideHeader slideNum="06" />
 
       <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "0 56px 56px" }}>
@@ -687,7 +678,7 @@ function CTASlide() {
         <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
           <button style={{
             padding: "12px 28px",
-            background: "linear-gradient(to right, #26ACFF, #6538FF)",
+            background: "#2253FF",
             color: "#FFFFFF",
             fontFamily: "'Manrope', sans-serif",
             fontSize: 14, fontWeight: 600,
@@ -713,7 +704,7 @@ function CTASlide() {
             <span key={brand} style={{
               fontFamily: "'Bricolage Grotesque', sans-serif",
               fontSize: 14, fontWeight: 700,
-              color: "#D0CBCA",
+              color: "rgba(12,25,70,0.3)",
               letterSpacing: "-0.01em",
             }}>
               {brand}
@@ -950,17 +941,15 @@ function CaseStudySlide({
       }}>
         {/* Left: brand + body */}
         <div>
-          <p style={{
-            fontFamily: "'Bricolage Grotesque', sans-serif",
+          <h2 style={{
             fontSize: "clamp(28px, 2.8vw, 44px)",
-            fontWeight: 700,
             color: "#FFFFFF",
             margin: "0 0 16px",
             lineHeight: 1,
             letterSpacing: "-0.03em",
           }}>
             {brand}
-          </p>
+          </h2>
           <p style={{
             fontFamily: "'Manrope', sans-serif",
             fontSize: 13,

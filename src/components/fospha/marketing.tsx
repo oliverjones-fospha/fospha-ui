@@ -84,47 +84,49 @@ export function MarketingNav({
 
 interface HeroProps {
   eyebrow?: string
-  headline: string
+  headline: React.ReactNode
   subheadline?: string
   primaryCta?: { label: string; href: string }
-  secondaryCta?: { label: string; href: string }
+  secondaryCta?: { label: string; href: string } | null
   badge?: string
 }
 
 export function HeroSection({
-  eyebrow = "Marketing Attribution",
-  headline = "Know exactly what's driving your revenue",
+  eyebrow = "",
+  headline = "Measurement that changes what happens next.",
   subheadline = "Fospha gives you accurate, always-on measurement across every paid channel — so you can spend with confidence and grow faster.",
   primaryCta  = { label: "Get a demo", href: "#" },
-  secondaryCta = { label: "See how it works", href: "#" },
+  secondaryCta,
   badge,
 }: HeroProps) {
   return (
     <section style={{
-      background: "#0C1946",
+      background: "radial-gradient(ellipse 85% 65% at 50% 50%, #FFFFFF 0%, #F6F2EF 30%, #F3EDE9 65%, #E6DCD6 100%)",
       padding: "96px 40px",
       textAlign: "center",
     }}>
       <div style={{ maxWidth: 760, margin: "0 auto" }}>
         {badge && (
           <div style={{ marginBottom: 20 }}>
-            <Badge variant="default" style={{ background: "rgba(227,238,255,0.15)", color: "#E3EEFF" }}>
+            <Badge variant="default" style={{ background: "rgba(34,83,255,0.08)", color: "#2253FF" }}>
               {badge}
             </Badge>
           </div>
         )}
 
         {/* Eyebrow */}
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
-          <EyebrowLabel style={{ color: "#E3EEFF" }}>{eyebrow}</EyebrowLabel>
-        </div>
+        {eyebrow && (
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
+            <EyebrowLabel style={{ color: "#525776" }}>{eyebrow}</EyebrowLabel>
+          </div>
+        )}
 
-        {/* Headline — solid white, never gradient */}
+        {/* Headline */}
         <h1 style={{
           fontFamily: "'Bricolage Grotesque', sans-serif",
           fontSize: "clamp(40px, 5vw, 64px)",
-          fontWeight: 700,
-          color: "#FFFFFF",
+          fontWeight: 400,
+          color: "#0C1946",
           lineHeight: 1.1,
           margin: "0 0 24px 0",
           letterSpacing: "-0.02em",
@@ -135,7 +137,7 @@ export function HeroSection({
         <p style={{
           fontFamily: "'Manrope', sans-serif",
           fontSize: 18,
-          color: "rgba(255,255,255,0.75)",
+          color: "#525776",
           lineHeight: 1.7,
           margin: "0 0 40px 0",
           maxWidth: 600,
@@ -146,16 +148,14 @@ export function HeroSection({
         </p>
 
         <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-          <FosphaButton variant="cta" size="lg">
+          <FosphaButton variant="primary" size="lg">
             {primaryCta.label}
           </FosphaButton>
-          <FosphaButton
-            variant="ghost"
-            size="lg"
-            style={{ color: "#E3EEFF", borderColor: "rgba(227,238,255,0.3)", border: "1px solid rgba(227,238,255,0.3)" }}
-          >
-            {secondaryCta.label}
-          </FosphaButton>
+          {secondaryCta && (
+            <FosphaButton variant="ghost" size="lg">
+              {secondaryCta.label}
+            </FosphaButton>
+          )}
         </div>
       </div>
     </section>
@@ -311,7 +311,7 @@ interface Feature {
 
 interface FeaturesSectionProps {
   eyebrow?: string
-  headline: string
+  headline: React.ReactNode
   subheadline?: string
   features: Feature[]
   columns?: 2 | 3
@@ -327,12 +327,12 @@ export function FeaturesSection({
   background = "white",
 }: FeaturesSectionProps) {
   const PRODUCT_ICONS_MAP: Record<string, React.ReactNode> = {
-    core:  <CoreIcon  size={18} color="#0C1946" />,
-    halo:  <HaloIcon  size={18} color="#0C1946" />,
-    glow:  <GlowIcon  size={18} color="#0C1946" />,
-    beam:  <BeamIcon  size={18} color="#0C1946" />,
-    prism: <PrismIcon size={18} color="#0C1946" />,
-    spark: <SparkIcon size={18} color="#0C1946" />,
+    core:  <CoreIcon  size={18} color="#1B45E4" />,
+    halo:  <HaloIcon  size={18} color="#008048" />,
+    glow:  <GlowIcon  size={18} color="#917308" />,
+    beam:  <BeamIcon  size={18} color="#AD1FA1" />,
+    prism: <PrismIcon size={18} color="#CC5C00" />,
+    spark: <SparkIcon size={18} color="#7347EB" />,
   }
 
   // DESIGN RULE: Product ramp backgrounds (lighter shades) must only be used
@@ -421,12 +421,7 @@ export function FeaturesSection({
               <h3 style={{
                 margin: "0 0 12px 0",
                 fontSize: 20,
-                color: (() => {
-                  const key = Object.keys(PRODUCT_RAMPS).find(
-                    k => k.toLowerCase() === (feature.eyebrow ?? '').toLowerCase()
-                  )
-                  return key ? PRODUCT_RAMPS[key].color : '#0C1946'
-                })(),
+                color: "#0C1946",
               }}>
                 {feature.title}
               </h3>
@@ -454,7 +449,7 @@ interface CaseStudy {
 
 interface CaseStudySectionProps {
   eyebrow?: string
-  headline?: string
+  headline?: React.ReactNode
   cases: CaseStudy[]
 }
 
@@ -493,7 +488,7 @@ export function CaseStudySection({
                 <p style={{
                   fontFamily: "'Bricolage Grotesque', sans-serif",
                   fontSize: 20,
-                  fontWeight: 700,
+                  fontWeight: 400,
                   color: "#0C1946",
                   margin: 0,
                 }}>
@@ -581,7 +576,7 @@ interface PricingTier {
 
 interface PricingSectionProps {
   eyebrow?: string
-  headline?: string
+  headline?: React.ReactNode
   tiers: PricingTier[]
 }
 
@@ -659,7 +654,7 @@ export function PricingSection({
                 <p style={{
                   fontFamily: "'Bricolage Grotesque', sans-serif",
                   fontSize: 36,
-                  fontWeight: 700,
+                  fontWeight: 400,
                   color: tier.highlighted ? "#FFFFFF" : "#0C1946",
                   margin: "0 0 8px 0",
                 }}>
@@ -717,7 +712,7 @@ export function PricingSection({
 // ── 8. CTA Banner ─────────────────────────────────────────────
 
 interface CTABannerProps {
-  headline: string
+  headline: React.ReactNode
   subheadline?: string
   primaryCta: { label: string; href: string }
   secondaryCta?: { label: string; href: string }

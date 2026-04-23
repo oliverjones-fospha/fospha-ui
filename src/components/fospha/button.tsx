@@ -1,7 +1,7 @@
 import * as React from "react"
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "cta" | "ghost"
+  variant?: "primary" | "secondary" | "ghost"
   size?: "sm" | "md" | "lg"
 }
 
@@ -17,7 +17,6 @@ export function FosphaButton({
   const variants = {
     primary:   "bg-[#2253FF] text-white hover:bg-[#1a42e0]",
     secondary: "bg-[#F3EDE9] text-[#0C1946] hover:bg-[#E6DCD6]",
-    cta:       "text-white",  // gradient applied via style below
     ghost:     "bg-transparent hover:bg-white/10",
   }
 
@@ -27,14 +26,9 @@ export function FosphaButton({
     lg: "h-12 px-7 text-base",
   }
 
-  const ctaStyle = variant === "cta"
-    ? { background: "linear-gradient(to right, #26ACFF, #6538FF)" }
-    : {}
-
   return (
     <button
       className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
-      style={ctaStyle}
       {...props}
     >
       {children}

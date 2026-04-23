@@ -27,12 +27,10 @@ export default function CampaignPage() {
       <MarketingNav />
 
       <HeroSection
-        eyebrow="Marketing Attribution"
-        headline="Know exactly what's driving your revenue"
+        eyebrow="The Measurement OS for online retail"
+        headline={<>Measurement that <strong style={{ fontWeight: 700 }}>changes what happens next.</strong></>}
         subheadline="Fospha gives you accurate, always-on measurement across every paid channel — so you can spend with confidence and grow faster."
         primaryCta={{ label: "Get a demo", href: "#" }}
-        secondaryCta={{ label: "See how it works", href: "#" }}
-        badge="Now with AI-powered forecasting"
       />
 
       <StatsBar
@@ -47,7 +45,7 @@ export default function CampaignPage() {
 
       <AwardStrip
         eyebrow="Recognition"
-        background="cream"
+        background="white"
         awards={[
           { title: "Best Attribution Platform", body: "Marketing Tech Awards",      year: "2025", category: "Winner"    },
           { title: "Top Rated Tool",            body: "G2 Enterprise Analytics",    year: "2025", category: "Leader"    },
@@ -70,7 +68,7 @@ export default function CampaignPage() {
 
       <TimelineSection
         eyebrow="How it works"
-        headline="Up and running in days, not months"
+        headline={<>Up and running in <strong style={{ fontWeight: 700 }}>days, not months</strong></>}
         subheadline="No complex engineering required. Connect your data, configure your channels, and start seeing results."
         background="white"
         steps={[
@@ -83,7 +81,7 @@ export default function CampaignPage() {
 
       <FeaturesSection
         eyebrow="Why Fospha"
-        headline="The attribution platform built for modern commerce"
+        headline={<>The attribution platform built for <strong style={{ fontWeight: 700 }}>modern commerce</strong></>}
         subheadline="Stop flying blind. Get the full picture of what's working across every channel, every day."
         background="white"
         columns={3}
@@ -99,7 +97,7 @@ export default function CampaignPage() {
 
       <VideoSection
         eyebrow="See it in action"
-        headline="Watch how Fospha works"
+        headline={<>Watch how <strong style={{ fontWeight: 700 }}>Fospha works</strong></>}
         subheadline="A 3-minute walkthrough of the platform from setup to insight."
         videoUrl="https://www.youtube.com/embed/dQw4w9WgXcQ"
         background="dark"
@@ -132,7 +130,7 @@ export default function CampaignPage() {
 
       <CaseStudySection
         eyebrow="Customer Stories"
-        headline="See what Fospha does for brands like yours"
+        headline={<>See what Fospha does for <strong style={{ fontWeight: 700 }}>brands like yours</strong></>}
         cases={[
           { brand: "Gymshark",          category: "Fitness & Apparel", result: "3.8×",  resultLabel: "ROAS improvement",                    quote: "Fospha gave us visibility we simply didn't have before.",                              background: "#E3EEFF" },
           { brand: "Charlotte Tilbury", category: "Beauty",            result: "+42%",  resultLabel: "Revenue from previously dark channels", quote: "We discovered upper-funnel activity was driving far more value than last-click showed.", background: "#FFF3DA" },
@@ -142,7 +140,7 @@ export default function CampaignPage() {
 
       <ComparisonTable
         eyebrow="Compare plans"
-        headline="Find the right plan for your brand"
+        headline={<>Find the <strong style={{ fontWeight: 700 }}>right plan</strong> for your brand</>}
         tierNames={["Starter", "Growth", "Enterprise"]}
         highlightedTier={1}
         rows={[
@@ -162,7 +160,7 @@ export default function CampaignPage() {
 
       <PricingSection
         eyebrow="Pricing"
-        headline="Simple, transparent pricing"
+        headline={<>Simple, <strong style={{ fontWeight: 700 }}>transparent</strong> pricing</>}
         tiers={[
           {
             name: "Starter", price: "£999", period: "/ month",
@@ -187,7 +185,7 @@ export default function CampaignPage() {
 
       <TeamSection
         eyebrow="The team"
-        headline="Built by people who've been in your shoes"
+        headline={<>Built by people who've <strong style={{ fontWeight: 700 }}>been in your shoes</strong></>}
         background="white"
         members={[
           { name: "Sam Carter",      title: "CEO",  bio: "Previously VP Marketing at ASOS. Spent 10 years on the brand side before building Fospha." },
@@ -199,7 +197,7 @@ export default function CampaignPage() {
 
       <FAQSection
         eyebrow="FAQ"
-        headline="Frequently asked questions"
+        headline={<>Frequently asked <strong style={{ fontWeight: 700 }}>questions</strong></>}
         background="white"
         columns={2}
         items={[
@@ -213,7 +211,7 @@ export default function CampaignPage() {
       />
 
       <CTABanner
-        headline="Ready to see the full picture?"
+        headline={<>Ready to see the <strong style={{ fontWeight: 700 }}>full picture?</strong></>}
         subheadline="Join 200+ brands using Fospha to measure what matters and grow faster."
         primaryCta={{ label: "Get a demo", href: "#" }}
         secondaryCta={{ label: "Talk to sales", href: "#" }}
