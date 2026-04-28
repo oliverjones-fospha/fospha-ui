@@ -24,6 +24,7 @@ const ptSerif = PT_Serif({
 export const metadata: Metadata = {
   title: "Fospha UI",
   description: "Fospha Design System",
+  robots: { index: false, follow: false },
 };
 
 export default function RootLayout({

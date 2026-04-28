@@ -1167,9 +1167,12 @@ export default function DeckPage() {
         flexShrink: 0,
       }}>
         {slides.map((s, i) => (
-          <button
+          <div
             key={i}
+            role="button"
+            tabIndex={0}
             onClick={() => setCurrent(i)}
+            onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setCurrent(i)}
             style={{
               flexShrink: 0,
               width: 140,
@@ -1198,7 +1201,7 @@ export default function DeckPage() {
             }}>
               {i + 1}. {s.label}
             </p>
-          </button>
+          </div>
         ))}
       </div>
     </div>
